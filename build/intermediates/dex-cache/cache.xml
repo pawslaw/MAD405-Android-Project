@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="93c10d68ab5ea070f15782ae6d3a28d1f1d8f45e">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.3.0_1d7b171c385d583a34f2e5d3a9f6d73ebd36deec.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.1.0_0d251801c3fbe4eb98d68589d9541b8f816e46f7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="518768f3200963fbfec652f498da2c9d39245234">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-utils-25.3.0_1ad8d9eaf11b96b8bca09bb032f9d922a82575fb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="5cc5ef8347a6bafa14556cbd35230aa9b3431bb0">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.3.0_930076e63797ae938ca317a6019936ff5a36d360.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-25.1.0_cbe0393cbad6edbd3e2260e7c8ab5a67580db99d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="425c7b17887e5c3f8cbdf67ba171bc246f29b42c">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-media-compat-25.3.0_c534119e2caaff667c0d441e64ac2d6db72265da.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.1.0_988d79d600ce259cdca8e6df9552866eeb0529df.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e79aa3d9a16f8c9f16377c0608de70a8f31e5d80">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-vector-drawable-25.1.0_e5e5f6b4f030f52207972e76c1b3fd66aebf0452.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-25.3.0_2e0dd063cd5b295e5131b5a0a3c6ad9b9efe8036.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="93c1199fcb0a34b980e6fff8350daff62e696ec2">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.3.0_a5f8a0f167b7bd8693a97b9fd16ed13ac19d75b1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.0/support-annotations-25.3.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="dd84903d2e1af25a6081ef9038ad863cb14ca3a0">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/support-annotations-25.3.0_03b2bbf35ca15b132129ab31863fb0a6b9e4ccac.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6fb6ac3e8d3b9013819920d9ea11f3803c4c0033">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-animated-vector-drawable-25.1.0_2283c6d45a528438bde5da237dbfc448a704a536.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/design/25.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
+        <dex dex="/home/pawslaw/Git/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-design-25.1.0_f9e85dcc402af88430ea914c8d9a36ec58aed396.jar" />
+    </item>
+
+</items>
