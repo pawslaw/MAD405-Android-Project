@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -48,7 +47,7 @@ public class MainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-
+        MainActivity.fab.hide();
 
         // Inflate the layout for this fragment
         return view;

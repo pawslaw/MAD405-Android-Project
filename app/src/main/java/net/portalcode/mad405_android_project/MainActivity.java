@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity
         MainFragment.OnFragmentInteractionListener {
 
     FragmentManager fragmentManager;
+    public static FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,17 +96,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_item1) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_item2) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_item3) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_item4) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_subitem1) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_subitem2) {
 
         }
 

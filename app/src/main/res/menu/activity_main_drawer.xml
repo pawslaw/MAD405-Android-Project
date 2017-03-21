@@ -3,33 +3,33 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_item1"
+            android:icon="@drawable/ic_adb_black_24dp"
+            android:title="First Option" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_item2"
+            android:icon="@drawable/ic_adb_black_24dp"
+            android:title="Secion Option" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_item3"
+            android:icon="@drawable/ic_adb_black_24dp"
+            android:title="Third Option" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_item4"
+            android:icon="@drawable/ic_adb_black_24dp"
+            android:title="Fouth Option" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Submenu">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_subitem1"
+                android:icon="@drawable/ic_adb_black_24dp"
+                android:title="First Suboption" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_subitem2"
+                android:icon="@drawable/ic_adb_black_24dp"
+                android:title="Second Suboption" />
         </menu>
     </item>
 
