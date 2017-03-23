@@ -18,9 +18,10 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        MainFragment.OnFragmentInteractionListener {
+        MainFragment.OnFragmentInteractionListener,
+        ChatFragment.OnFragmentInteractionListener{
 
-    FragmentManager fragmentManager;
+    FragmentManager fm;
     public static FloatingActionButton fab;
 
     @Override
@@ -51,8 +52,8 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // As soon as the app opens, change the current view to the Main Fragment
-        fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.add(R.id.content_main, new MainFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -96,8 +97,11 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_item1) {
-            // Handle the camera action
+        FragmentTransaction trans = fm.beginTransaction();
+
+        if (id == R.id.nav_chat) {
+            trans.replace(R.id.content_main, new ChatFragment());
+            trans.commit();
         } else if (id == R.id.nav_item2) {
 
         } else if (id == R.id.nav_item3) {
