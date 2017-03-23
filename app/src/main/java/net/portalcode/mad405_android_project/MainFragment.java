@@ -3,10 +3,15 @@ package net.portalcode.mad405_android_project;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +41,8 @@ public class MainFragment extends Fragment {
         return fragment;
     }
 
+    public static TextView textView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,16 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        textView = (TextView) view.findViewById(R.id.textView);
+
+        // Remove this if possible, it is horrible
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        String string = new ServerAPI().doInBackground();
+
+        textView.setText(string);
 
         MainActivity.fab.hide();
 

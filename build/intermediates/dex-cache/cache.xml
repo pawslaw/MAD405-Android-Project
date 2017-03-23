@@ -16,7 +16,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="e3b4e922dd1c9e0ded1483bc534e161817af13f9">
+        sha1="f094ba1c44733598d0484ec952e295f1d86c904a">
         <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/instant-run_e896905ee8b5744f9a2679f18d12c1779f551205.jar" />
     </item>
     <item
@@ -30,30 +30,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
-        <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.1.0_8435e8597e432752de92c3777567cfd668275bd4.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="aee64634871d88a419d59eb743c1258a60f19700">
         <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-core-ui-25.1.0_a2786e75e6f237130e08e6ec0ff7a0e21a7ead6f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
-        <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.1.0_2673fb64556ee1612f6f7e19e65785c4de2a90ed.jar" />
     </item>
     <item
         is-multidex="false"
@@ -93,21 +75,48 @@
     </item>
     <item
         is-multidex="false"
-        jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
-        <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.1.0_fb64e06178eb4b9b3240d79c14550b773328b43a.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
         sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
         <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/support-annotations-25.1.0_36e230c32909ef34ecce9922106058ce37f45b94.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
+        <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.1.0_bc65dfa0c6a227e078782fb731fac8fb9e4dafc0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
+        <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-compat-25.1.0_8435e8597e432752de92c3777567cfd668275bd4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
+        <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-support-fragment-25.1.0_2673fb64556ee1612f6f7e19e65785c4de2a90ed.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
+        <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-25.1.0_fb64e06178eb4b9b3240d79c14550b773328b43a.jar" />
     </item>
     <item
         is-multidex="false"
@@ -124,17 +133,8 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="3e41f57737d51994795b3c6812b62657795155fe">
+        sha1="36f3f8f6ffaeca820f741a3fa571052b9ebdb519">
         <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_d4c89f61ae44a94464deabcaef719aac67a25b8e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.0/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
-        <dex dex="/Users/web/Desktop/MAD405-Android-Project/app/build/intermediates/pre-dexed/debug/com.android.support-transition-25.1.0_bc65dfa0c6a227e078782fb731fac8fb9e4dafc0.jar" />
     </item>
 
 </items>
