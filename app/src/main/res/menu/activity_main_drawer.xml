@@ -17,7 +17,7 @@
         <item
             android:id="@+id/nav_item4"
             android:icon="@drawable/ic_adb_black_24dp"
-            android:title="Fouth Option" />
+            android:title="Fourth Option" />
     </group>
 
     <item android:title="Submenu">
