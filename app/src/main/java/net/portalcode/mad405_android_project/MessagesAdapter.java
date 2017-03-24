@@ -1,7 +1,7 @@
 package net.portalcode.mad405_android_project;
 
 /**
- * Created by diego on 3/24/2017.
+ * Created by James Pierce on 3/24/2017.
  */
 
 
@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * description This is the adapter class I use for the messages and the RecyclerView.
- * This was put in a separate class file because of the static inner class having issues when in the ChatFragment.
  */
 public class MessagesAdapter extends
         RecyclerView.Adapter<MessagesAdapter.ViewHolder> {

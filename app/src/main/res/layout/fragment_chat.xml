@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.portalcode.mad405_android_project.ChatFragment">
+    tools:context="net.portalcode.mad405_android_project.ChatFragment"
+    android:orientation="vertical">
     <!-- This is a RecyclerView. It is used in place of a ListView. It will delete items
             as they scroll off the top or bottom of the screen, and only load new items as they are
             pulled or pushed onto the screen.-->

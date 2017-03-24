@@ -1,7 +1,7 @@
 package net.portalcode.mad405_android_project;
 
 /**
- * Created by diego on 3/24/2017.
+ * Created by James Pierce on 3/24/2017.
  */
 
 
