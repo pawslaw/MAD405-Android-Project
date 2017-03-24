@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This linear layout keeps the avatar image and the rest of the message content displayed in one row -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp">
+
+    <!-- This is the avatar image to be displayed for each user -->
+    <ImageView
+        app:srcCompat="@drawable/ic_menu_manage"
+        android:id="@+id/avatar"
+        android:padding="2dp"
+        android:layout_height="32dp"
+        android:layout_width="32dp" />
+    <!-- This will stack the Name, Date, and Message fields vertically -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="10">
+
+        <!-- This will horizontally align the name and date into one row, above the message itself -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- This will display the user's name -->
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:padding="2dp"
+                android:textStyle="normal|bold" />
+            <!-- This will display the date / time the user sent the message -->
+            <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/time"
+                android:textSize="11sp"
+                android:padding="2dp" />
+        </LinearLayout>
+        <!-- This is the message content -->
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/message"
+            android:padding="2dp" />
+    </LinearLayout>
+</LinearLayout>
