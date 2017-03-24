@@ -60,6 +60,8 @@ public class MainFragment extends Fragment {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        new ServerAPI().POST();
+
         String string = new ServerAPI().doInBackground();
 
         textView.setText(string);
