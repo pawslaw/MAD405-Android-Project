@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 /**
- * Created by diego on 3/24/2017.
+ * Created by James Pierce on 3/24/2017.
  */
 
 
@@ -25,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Create the name of the database
      */
 
-    private static final String DATABASE_NAME = "rpgclub";
+    private static final String DATABASE_NAME = "androidproject";
 
     /**
      * Create the names of all the tables
@@ -56,7 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_IMAGE = "avatar";
 
     /**
-     * Create statments for all the tables
+     * Create statements for all the tables
      */
 
     private static final String CREATE_MESSAGES_TABLE = "CREATE TABLE " + TABLE_MESSAGES
@@ -123,14 +123,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // get individual user
     public User getUser(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        /**
-         * Create a cursor
-         * (Which is able to move through and access database records)
-         * Have it store all the records retrieved from the db.query()
-         * cursor starts by pointing at record 0
-         * Databases do not have a record 0
-         * we use cursor.moveToFirst() to have it at the first record returned
-         */
         User user = null;
         Cursor firstCursor = db.rawQuery("SELECT * FROM " + TABLE_USERS, null);
         Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID, KEY_NAME, KEY_IMAGE},  KEY_ID + " = " + String.valueOf(id), null, null, null, null, null);
