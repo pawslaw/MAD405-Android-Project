@@ -3,10 +3,20 @@ package net.portalcode.mad405_android_project;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -26,6 +36,15 @@ public class ChatFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    // Declare variables for views being displayed
+    RecyclerView rvMessages;
+    Button sendButton;
+
+    // Declare variables for the message content to be transferred
+    EditText messageContent;
+    String newMessage;
+    String currentDateTimeString;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +83,57 @@ public class ChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        fab.hide();
+
+        // Attempt to move content up when opening the EditText
+        // This does not work all the time. No idea why.
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
+        messageContent = (EditText) view.findViewById(R.id.editMessage);
+        sendButton = (Button) view.findViewById(R.id.sendButton);
+        rvMessages = (RecyclerView) view.findViewById(R.id.chatList);
+
+        DatabaseHandler db = new DatabaseHandler(getContext());
+        final ArrayList<Message> messageList = db.getAllMessages();
+
+        db.closeDB();
+
+        final MessagesAdapter adapter = new MessagesAdapter(this.getContext(), messageList);
+
+        // Attach the adapter to the recyclerview to populate items
+        rvMessages.setAdapter(adapter);
+
+        // Set layout manager to position the items
+        rvMessages.setLayoutManager(new LinearLayoutManager(this.getContext()));
+
+        // This will be used to send a message once the user is ready to send it.
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newMessage =  messageContent.getText().toString();
+
+                // This will get the current time.
+                currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+
+                // This will add the message to the messageList.
+
+                DatabaseHandler db = new DatabaseHandler(getContext());
+                db.addMessage(new Message(currentDateTimeString, newMessage, 2));
+                messageList.add(new Message(currentDateTimeString, newMessage, 2));
+
+                // This will update the adapter so that the new message will be displayed on the screen
+                // This will update the view adapter
+                adapter.notifyDataSetChanged();
+
+                // This will clear the editText
+                messageContent.setText("");
+            }
+        });
+
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
