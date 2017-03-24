@@ -111,7 +111,33 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_subitem1) {
 
         } else if (id == R.id.nav_subitem2) {
+            // Add all entries to the database.
+            DatabaseHandler db = new DatabaseHandler(getBaseContext());
 
+            // Add temporary Users to the User's table for testing purposes
+            db.addUser(new User("Test1", R.drawable.ic_adb_black_24dp));
+            db.addUser(new User("Test2", R.drawable.ic_android_black_24dp));
+            db.addUser(new User("Test3", R.drawable.ic_forum_black_24dp));
+            db.addUser(new User("Test4", R.drawable.ic_album_black_24dp));
+            db.addUser(new User("Test5", R.drawable.ic_attach_file_black_24dp));
+            db.addUser(new User("Test6", R.drawable.ic_colorize_black_24dp));
+
+
+            // Add all the messages required for the chat client to the Messages table
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", 1));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Sed malesuada, enim sit amet facilisis mattis, est lorem vestibulum lectus, at laoreet odio odio at ligula. Vivamus id facilisis leo, ac vehicula orci.", 2));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Aenean nulla tellus, euismod a vestibulum eget, consequat et lectus. ", 3));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Aliquam at tempus enim. Praesent mattis sed nisi in dignissim. Maecenas sit amet malesuada sapien. Praesent eget erat ut nisi eleifend feugiat.", 4));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Cras auctor, erat rutrum auctor tincidunt, elit libero sollicitudin diam, eu pellentesque nulla massa at ante. Maecenas dolor neque, tempor ut cursus et, malesuada eu neque. Vestibulum ac hendrerit nunc. Integer eleifend ex in mi ultrices elementum. Ut facilisis id libero quis dignissim. Vestibulum venenatis euismod rhoncus.", 5));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", " Aenean eleifend, magna nec interdum luctus, ligula sem pulvinar nisi, ut consectetur turpis mi in tortor. Phasellus sagittis ullamcorper odio, ac iaculis quam gravida eget.", 6));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Sed eros orci, sollicitudin sit amet ex at, mollis ullamcorper mauris. Nunc nec consectetur dolor.", 1));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Suspendisse sapien mauris, pulvinar sed augue elementum, tincidunt lacinia mi.", 2));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "In vel porta augue. Praesent lacinia ex ac cursus posuere. Cras ornare volutpat velit, id aliquam augue dictum vitae.", 3));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Integer varius est id lectus fermentum, et tempor arcu pretium. Cras posuere maximus ipsum.", 4));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Proin posuere arcu a iaculis dictum. Sed suscipit aliquam lorem eget mollis.", 5));
+            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Donec sollicitudin elit a sem cursus lacinia. Nunc quis ligula eget sapien sagittis porttitor id vitae felis. Sed commodo arcu sit amet magna laoreet, quis eleifend nibh ultricies. ", 6));
+
+            db.closeDB();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
