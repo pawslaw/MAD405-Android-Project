@@ -46,9 +46,5 @@
             android:layout_weight="1" />
     </LinearLayout>
 
-    <!-- There will be a text field going here eventually.
-        Focusing on finishing the app itself before adding the
-        "special" features. -->
-
 
 </LinearLayout>
