@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.logging.Logger;
 
 /**
@@ -57,41 +58,38 @@ public class ServerAPI extends AsyncTask<String, String, String> {
     public String POST() {
         StringBuilder result = new StringBuilder();
         String data = "";
+        JSONObject postData = new JSONObject();
+        HttpURLConnection httpURLConnection = null;
 
         try {
-            JSONObject postData = new JSONObject();
-            try {
 
+            postData.put("name", "TEST");
+            postData.put("address", "TEST");
+            httpURLConnection = (HttpURLConnection) new URL("http://chat.portalcode.net/").openConnection();
+            httpURLConnection.setRequestMethod("POST");
 
-                postData.put("name", "TEST");
-                postData.put("address", "TEST");
-                HttpURLConnection httpURLConnection = null;
-                httpURLConnection = (HttpURLConnection) new URL("http://chat.portalcode.net/").openConnection();
-                httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
 
-                httpURLConnection.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
+            wr.writeBytes("PostData=" + postData);
+            wr.flush();
+            wr.close();
 
-                DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-                wr.writeBytes("PostData=" + postData);
-                wr.flush();
-                wr.close();
+            InputStream in = httpURLConnection.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(in);
 
-                InputStream in = httpURLConnection.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(in);
-
-                int inputStreamData = inputStreamReader.read();
-                while (inputStreamData != -1) {
-                    char current = (char) inputStreamData;
-                    inputStreamData = inputStreamReader.read();
-                    data += current;
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            int inputStreamData = inputStreamReader.read();
+            while (inputStreamData != -1) {
+                char current = (char) inputStreamData;
+                inputStreamData = inputStreamReader.read();
+                data += current;
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            urlConnection.disconnect();
+            httpURLConnection.disconnect();
         }
 
         return data;
