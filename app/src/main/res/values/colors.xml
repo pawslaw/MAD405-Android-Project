@@ -6,4 +6,20 @@
     <color name="navigationDrawerStart">#81C784</color>
     <color name="navigationDrawerCenter">#4CAF50</color>
     <color name="navigationDrawerEnd">#2E7D32</color>
+
+    <!-- Palette A -->
+    <color name="cleanSidewalk">#DDD2C5</color>
+    <color name="dirtySidewalk">#989389</color>
+    <color name="icicle">#A8C4D3</color>
+    <color name="avalanche">#6188B0</color>
+    <color name="hypothermia">#3A434D</color>
+
+    <!-- Palette B -->
+    <color name="concrete">#CCCCCC</color>
+    <color name="highbeam">#EFFEFF</color>
+    <color name="ice">#C8E8E9</color>
+    <color name="nevada">#667378</color>
+    <color name="graphite">#48485C</color>
+
+
 </resources>
