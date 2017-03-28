@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 
 import static java.security.AccessController.getContext;
 import static net.portalcode.mad405_android_project.ChatFragment.adapter;
+import static net.portalcode.mad405_android_project.ChatFragment.messageList;
 
 /**
  * Created by web on 2017-04-13.
@@ -156,8 +157,29 @@ public class APICall extends AsyncTask<String, String, String> {
 
                     Log.i("LOGSCREAM", message.toString());
                 }
-                ChatFragment.messageList = db.getAllMessages();
+                messageList = db.getAllMessages();
+
+                Log.i("TEST", "----- PRINTING MESSAGES -----");
+                for (int i = 0; i< messageList.size(); i++) {
+                    Log.i("TEST", messageList.get(i).getContent());
+                }
+
+                Log.i("TEST", "----- RESETTING MESSAGE LIST -----");
+
+                messageList.clear();
+                messageList.addAll(db.getAllMessages());
                 adapter.notifyDataSetChanged();
+
+                Log.i("TEST", "----- PRINTING MESSAGES -----");
+                for (int i = 0; i< messageList.size(); i++) {
+                    Log.i("TEST", messageList.get(i).getContent());
+                }
+
+                adapter.notifyDataSetChanged();
+
+                ChatFragment.adapter = new MessagesAdapter(MainActivity.context, messageList);
+                ChatFragment.rvMessages.setAdapter(adapter);
+                ChatFragment.rvMessages.scrollToPosition(adapter.getItemCount()-1);
                 db.closeDB();
             }
         } catch (JSONException e) {
