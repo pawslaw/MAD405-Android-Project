@@ -139,6 +139,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
+    // get all messages
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> userList = new ArrayList<User>();
+        String selectQuery = "SELECT * FROM " + TABLE_USERS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        if(cursor.moveToFirst()) {
+            do {
+                User user = new User();
+                user.setId(Integer.parseInt(cursor.getString(0)));
+                user.setName(cursor.getString(1));
+                user.setAvatar(Integer.parseInt(cursor.getString(2)));
+               userList.add(user);
+            }while(cursor.moveToNext());
+        }
+
+        return userList;
+    }
+
     // get individual Message
     public Message getMessage(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
