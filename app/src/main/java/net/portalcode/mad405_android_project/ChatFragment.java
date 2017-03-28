@@ -134,6 +134,8 @@ public class ChatFragment extends Fragment {
 
                     // This will clear the editText
                     messageContent.setText("");
+
+                    rvMessages.scrollToPosition(adapter.getItemCount()-1);
                 } else {
                     Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
                 }
