@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -117,18 +118,26 @@ public class ChatFragment extends Fragment {
                 // This will get the current time.
                 currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
-                // This will add the message to the messageList.
-
+                // This will add the message to the messageList if there are users in the database
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                db.addMessage(new Message(currentDateTimeString, newMessage, 2));
-                messageList.add(new Message(currentDateTimeString, newMessage, 2));
+                ArrayList<User> test= new ArrayList<User>();
+                System.out.println(db.getAllUsers());
+                System.out.println(test);
+                if(!db.getAllUsers().equals(test)){
+                    System.out.println("I am adding a message to the chat");
+                    db.addMessage(new Message(currentDateTimeString, newMessage, 2));
+                    messageList.add(new Message(currentDateTimeString, newMessage, 2));
 
-                // This will update the adapter so that the new message will be displayed on the screen
-                // This will update the view adapter
-                adapter.notifyDataSetChanged();
+                    // This will update the adapter so that the new message will be displayed on the screen
+                    // This will update the view adapter
+                    adapter.notifyDataSetChanged();
 
-                // This will clear the editText
-                messageContent.setText("");
+                    // This will clear the editText
+                    messageContent.setText("");
+                } else {
+                    Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
