@@ -10,35 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92b92848-3189-4b9a-b286-61e68a7ff60c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/animated_vector_drawable_25_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_25_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/design_25_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/espresso_core_2_2_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/espresso_idling_resource_2_2_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/exposed_instrumentation_api_publish_0_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_integration_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_library_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/javawriter_2_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/javax_annotation_api_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/javax_inject_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/jsr305_2_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/junit_4_12.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/recyclerview_v7_25_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/rules_0_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/runner_0_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/support_vector_drawable_25_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/transition_25_1_0.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/fileSnapshotsToTreeSnapshotsIndex.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localClassSetAnalysis/localClassSetAnalysis.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" afterPath="$PROJECT_DIR$/.gradle/2.14.1/tasks/_app_compileDebugJavaWithJavac/localJarClasspathSnapshot/localJarClasspathSnapshot.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
     </list>
     <ignored path="MAD405-Android-Project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,8 +50,8 @@
       <file leaf-file-name="ChatFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/net/portalcode/mad405_android_project/ChatFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="125" column="48" selection-start-line="125" selection-start-column="44" selection-end-line="125" selection-end-column="48" />
+            <state relative-caret-position="390">
+              <caret line="135" column="47" selection-start-line="135" selection-start-column="47" selection-end-line="135" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -88,7 +62,13 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1110">
               <caret line="84" column="67" selection-start-line="84" selection-start-column="67" selection-end-line="84" selection-end-column="67" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1778#1779#0" expanded="false" />
+                <element signature="e#1809#1810#0" expanded="false" />
+                <element signature="e#3328#3329#0" expanded="false" />
+                <element signature="e#3367#3368#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -98,7 +78,11 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
               <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1192#1193#0" expanded="false" />
+                <element signature="e#1242#1243#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -108,7 +92,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1755">
               <caret line="131" column="62" selection-start-line="131" selection-start-column="62" selection-end-line="131" selection-end-column="62" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -118,7 +104,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1200">
               <caret line="86" column="57" selection-start-line="86" selection-start-column="57" selection-end-line="86" selection-end-column="57" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -128,7 +116,20 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
               <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-              <folding />
+              <folding>
+                <element signature="e#554#555#0" expanded="false" />
+                <element signature="e#579#580#0" expanded="false" />
+                <element signature="e#612#613#0" expanded="false" />
+                <element signature="e#640#641#0" expanded="false" />
+                <element signature="e#671#672#0" expanded="false" />
+                <element signature="e#698#699#0" expanded="false" />
+                <element signature="e#738#739#0" expanded="false" />
+                <element signature="e#770#771#0" expanded="false" />
+                <element signature="e#800#801#0" expanded="false" />
+                <element signature="e#829#830#0" expanded="false" />
+                <element signature="e#870#871#0" expanded="false" />
+                <element signature="e#906#907#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2215,7 +2216,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1110">
           <caret line="84" column="67" selection-start-line="84" selection-start-column="67" selection-end-line="84" selection-end-column="67" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1778#1779#0" expanded="false" />
+            <element signature="e#1809#1810#0" expanded="false" />
+            <element signature="e#3328#3329#0" expanded="false" />
+            <element signature="e#3367#3368#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2223,7 +2230,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1192#1193#0" expanded="false" />
+            <element signature="e#1242#1243#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2231,7 +2242,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1755">
           <caret line="131" column="62" selection-start-line="131" selection-start-column="62" selection-end-line="131" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2239,7 +2252,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="86" column="57" selection-start-line="86" selection-start-column="57" selection-end-line="86" selection-end-column="57" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2247,7 +2262,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#554#555#0" expanded="false" />
+            <element signature="e#579#580#0" expanded="false" />
+            <element signature="e#612#613#0" expanded="false" />
+            <element signature="e#640#641#0" expanded="false" />
+            <element signature="e#671#672#0" expanded="false" />
+            <element signature="e#698#699#0" expanded="false" />
+            <element signature="e#738#739#0" expanded="false" />
+            <element signature="e#770#771#0" expanded="false" />
+            <element signature="e#800#801#0" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#870#871#0" expanded="false" />
+            <element signature="e#906#907#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2255,7 +2283,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#554#555#0" expanded="false" />
+            <element signature="e#579#580#0" expanded="false" />
+            <element signature="e#612#613#0" expanded="false" />
+            <element signature="e#640#641#0" expanded="false" />
+            <element signature="e#671#672#0" expanded="false" />
+            <element signature="e#698#699#0" expanded="false" />
+            <element signature="e#738#739#0" expanded="false" />
+            <element signature="e#770#771#0" expanded="false" />
+            <element signature="e#800#801#0" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#870#871#0" expanded="false" />
+            <element signature="e#906#907#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2263,7 +2304,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1200">
           <caret line="86" column="57" selection-start-line="86" selection-start-column="57" selection-end-line="86" selection-end-column="57" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2271,7 +2314,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1192#1193#0" expanded="false" />
+            <element signature="e#1242#1243#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2279,7 +2326,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1755">
           <caret line="131" column="62" selection-start-line="131" selection-start-column="62" selection-end-line="131" selection-end-column="62" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2287,14 +2336,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1110">
           <caret line="84" column="67" selection-start-line="84" selection-start-column="67" selection-end-line="84" selection-end-column="67" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1778#1779#0" expanded="false" />
+            <element signature="e#1809#1810#0" expanded="false" />
+            <element signature="e#3328#3329#0" expanded="false" />
+            <element signature="e#3367#3368#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/net/portalcode/mad405_android_project/ChatFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="125" column="48" selection-start-line="125" selection-start-column="44" selection-end-line="125" selection-end-column="48" />
+        <state relative-caret-position="390">
+          <caret line="135" column="47" selection-start-line="135" selection-start-column="47" selection-end-line="135" selection-end-column="47" />
           <folding />
         </state>
       </provider>
