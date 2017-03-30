@@ -146,7 +146,6 @@ public class ChatFragment extends Fragment {
                         adapter.notifyDataSetChanged();
 
                         // This will clear the editText
-                        
                         messageContent.setText("");
 
                         rvMessages.scrollToPosition(adapter.getItemCount()-1);
