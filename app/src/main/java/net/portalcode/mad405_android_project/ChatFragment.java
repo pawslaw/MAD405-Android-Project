@@ -1,6 +1,8 @@
 package net.portalcode.mad405_android_project;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -123,17 +125,32 @@ public class ChatFragment extends Fragment {
                 ArrayList<User> test= new ArrayList<User>();
                 System.out.println(db.getAllUsers());
                 System.out.println(test);
+
+                // This will test to see if the user is connected to wifi.
+                ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+                // Confirm there are valid users in the local database
+                // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
+                //TODO This should probably be updated to confirm the user is a validated user before sending the message
                 if(!db.getAllUsers().equals(test)){
-                    System.out.println("I am adding a message to the chat");
-                    db.addMessage(new Message(currentDateTimeString, newMessage, 2));
-                    messageList.add(new Message(currentDateTimeString, newMessage, 2));
+                    if (mWifi.isConnected() || mData.isConnected()) {
+                        System.out.println("I am adding a message to the chat");
+                        db.addMessage(new Message(currentDateTimeString, newMessage, 2));
+                        messageList.add(new Message(currentDateTimeString, newMessage, 2));
 
-                    // This will update the adapter so that the new message will be displayed on the screen
-                    // This will update the view adapter
-                    adapter.notifyDataSetChanged();
+                        // This will update the adapter so that the new message will be displayed on the screen
+                        // This will update the view adapter
+                        adapter.notifyDataSetChanged();
 
-                    // This will clear the editText
-                    messageContent.setText("");
+                        // This will clear the editText
+                        messageContent.setText("");
+
+                        rvMessages.scrollToPosition(adapter.getItemCount()-1);
+                    } else {
+                        Toast.makeText(getContext(), "You are not connected to a network.", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
                 }
@@ -141,11 +158,11 @@ public class ChatFragment extends Fragment {
             }
         });
 
+        rvMessages.scrollToPosition(adapter.getItemCount() -1);
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -180,7 +197,6 @@ public class ChatFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
