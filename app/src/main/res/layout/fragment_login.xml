@@ -1,0 +1,91 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.portalcode.mad405_android_project.LoginFragment"
+    android:orientation="vertical"
+    android:padding="25dp"
+    android:background="@color/hypothermia">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Company Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/header"
+            android:fontFamily="sans-serif"
+            android:typeface="sans"
+            android:textAlignment="center"
+            android:textStyle="normal|bold"
+            android:textSize="30sp"
+            android:textColor="@color/frostbite" />
+
+        <ImageView
+            app:srcCompat="@drawable/ic_account_circle_black_24dp"
+            android:id="@+id/accountImage"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:tint="@color/frostbite" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/email"
+            android:layout_height="60dp"
+            android:textColor="@color/frostbite"
+            android:hint="Company Email"
+            android:textColorHint="@color/nevada"
+            android:textSize="18sp"
+            android:textColorLink="@color/icicle"
+            android:background="@color/graphite"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_vpn_key_black_24dp"
+            android:id="@+id/passwordImage"
+            android:layout_width="match_parent"
+            android:tint="@color/frostbite" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/password"
+            android:layout_height="60dp"
+            android:textColor="@color/frostbite"
+            android:hint="Password"
+            android:textColorHint="@color/nevada"
+            android:textSize="18sp"
+            android:textColorLink="@color/icicle"
+            android:background="@color/graphite" />
+
+        <Button
+            android:text="Login"
+            android:layout_width="match_parent"
+            android:id="@+id/loginButton"
+            android:layout_height="60dp"
+            android:textSize="18sp" />
+
+        <TextView
+            android:text="Remember: Don't share your login credentials"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/threat"
+            android:textAlignment="center"
+            android:textColor="@color/frostbite" />
+    </LinearLayout>
+
+</LinearLayout>

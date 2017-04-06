@@ -19,7 +19,8 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
-        ChatFragment.OnFragmentInteractionListener{
+        ChatFragment.OnFragmentInteractionListener,
+        LoginFragment.OnFragmentInteractionListener{
 
     FragmentManager fm;
     public static FloatingActionButton fab;
@@ -54,7 +55,10 @@ public class MainActivity extends AppCompatActivity
         // As soon as the app opens, change the current view to the Main Fragment
         fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.content_main, new MainFragment());
+
+        // Temporarily redirecting to the login screen on bootup
+        //fragmentTransaction.add(R.id.content_main, new MainFragment());
+        fragmentTransaction.add(R.id.content_main, new LoginFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
