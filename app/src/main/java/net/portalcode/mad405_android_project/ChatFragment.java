@@ -163,6 +163,7 @@ public class ChatFragment extends Fragment {
         return view;
     }
 
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -94,7 +96,11 @@ public class MessagesAdapter extends
 
         // Sets the avatar using the resource id of the drawable image stored in the message
         ImageView avatar = viewHolder.avatar;
-        avatar.setImageResource(db.getUser(message.getUser_id()).getAvatar());
+        Picasso.with(getContext())
+                .load(R.drawable.ic_attach_file_black_24dp)
+                .placeholder(db.getUser(message.getUser_id()).getAvatar())
+                .into(avatar);
+//        avatar.setImageResource(db.getUser(message.getUser_id()).getAvatar());
     }
 
     // Returns the total count of items in the list
