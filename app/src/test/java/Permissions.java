@@ -14,7 +14,7 @@ public class Permissions {
         this.setCanEdit(false);
         this.setCanRead(true);
         this.setCanWrite(true);
-    }git a
+    }
 
     public boolean isCanRead() {
         return canRead;
