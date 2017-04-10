@@ -138,6 +138,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, user.getName());
         values.put(KEY_IMAGE, user.getAvatar());
+        values.put(KEY_PERMS, user.getPermissions());
         db.insert(TABLE_USERS, null, values);
     }
 
@@ -260,6 +261,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, user.getName());
         values.put(KEY_IMAGE, user.getAvatar());
+        values.put(KEY_PERMS, user.getPermissions());
         return db.update(TABLE_USERS, values, KEY_ID + " = ?",
                 new String[] {String.valueOf(user.getId())});
     }
