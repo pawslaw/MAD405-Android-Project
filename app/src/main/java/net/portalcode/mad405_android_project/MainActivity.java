@@ -115,8 +115,15 @@ public class MainActivity extends AppCompatActivity
             DatabaseHandler db = new DatabaseHandler(getBaseContext());
 
             // Add temporary Permissions to the Permissions table for testing purposes
-            // 1 is a normal user, 2 is a moderator (0 and 1 respectively)
-            //TODO: NEED TO FINISH ADDING METHODS TO DATABASEHANDLER
+            // Permission 1(first entry) is the standard user, 2 is a moderator. 3 is just a tester permission
+            // -RW
+            db.addPermissions(new Permissions(0, 1, 1));
+            // ERW
+            db.addPermissions(new Permissions(1, 1, 1));
+            // -R-
+            db.addPermissions(new Permissions(0, 1, 0));
+
+
 
             // Add temporary Users to the Users table for testing purposes
             db.addUser(new User("Android User", R.drawable.ic_adb_black_24dp, 1));
