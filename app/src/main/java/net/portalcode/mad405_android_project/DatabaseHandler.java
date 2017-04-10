@@ -303,7 +303,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-
     /**
      * Closing the database connection
      */
