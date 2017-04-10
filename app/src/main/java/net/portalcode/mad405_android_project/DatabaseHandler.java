@@ -56,6 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String KEY_NAME = "name";
     private static final String KEY_IMAGE = "avatar";
+    private static final String KEY_PERMS = "permissions";
 
     /**
      * Permissions Table column names
@@ -71,19 +72,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
 
     private static final String CREATE_MESSAGES_TABLE = "CREATE TABLE " + TABLE_MESSAGES
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USER_KEY
-            + " INTEGER REFERENCES " + TABLE_USERS + "(" + KEY_ID + "),"
-            + KEY_TIME + " DATETIME NOT NULL," + KEY_CONTENT + " TEXT)";
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_USER_KEY + " INTEGER REFERENCES " + TABLE_USERS + "(" + KEY_ID + "),"
+            + KEY_TIME + " DATETIME NOT NULL,"
+            + KEY_CONTENT + " TEXT)";
 
     private static final String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, "
-            + KEY_IMAGE + " INTEGER)";
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + KEY_NAME + " TEXT, "
+            + KEY_IMAGE + " INTEGER, "
+            + KEY_PERMS + " INTEGER REFERENCES " + TABLE_PERMISSIONS + "(" + KEY_ID + ")";
 
     private static final String CREATE_PERMISSIONS_TABLE = "CREATE TABLE " + TABLE_PERMISSIONS
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USER_KEY
-            + " INTEGER REFERENCES " + TABLE_USERS + "(" + KEY_ID + "),"
-            + KEY_CAN_EDIT + " TINYINT(1), " + KEY_CAN_READ + " TINYINT(1), "
-            + KEY_CAN_WRITE + " TINYINT(1)";
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," 
+            + KEY_CAN_EDIT + " TINYINT(1), "
+            + KEY_CAN_READ + " TINYINT(1), "
+            + KEY_CAN_WRITE + " TINYINT(1))";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
