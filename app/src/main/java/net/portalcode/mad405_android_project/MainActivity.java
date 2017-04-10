@@ -114,13 +114,17 @@ public class MainActivity extends AppCompatActivity
             // Add all entries to the database.
             DatabaseHandler db = new DatabaseHandler(getBaseContext());
 
-            // Add temporary Users to the User's table for testing purposes
-            db.addUser(new User("Test1", R.drawable.ic_adb_black_24dp));
-            db.addUser(new User("Test2", R.drawable.ic_android_black_24dp));
-            db.addUser(new User("Test3", R.drawable.ic_forum_black_24dp));
-            db.addUser(new User("Test4", R.drawable.ic_album_black_24dp));
-            db.addUser(new User("Test5", R.drawable.ic_attach_file_black_24dp));
-            db.addUser(new User("Test6", R.drawable.ic_colorize_black_24dp));
+            // Add temporary Permissions to the Permissions table for testing purposes
+            // 1 is a normal user, 2 is a moderator (0 and 1 respectively)
+            //TODO: NEED TO FINISH ADDING METHODS TO DATABASEHANDLER
+
+            // Add temporary Users to the Users table for testing purposes
+            db.addUser(new User("Android User", R.drawable.ic_adb_black_24dp, 1));
+            db.addUser(new User("Mr. Robot", R.drawable.ic_android_black_24dp, 1));
+            db.addUser(new User("Chatty Cathy", R.drawable.ic_forum_black_24dp, 1));
+            db.addUser(new User("DJ Disco", R.drawable.ic_album_black_24dp, 1));
+            db.addUser(new User("Mr. Helpful", R.drawable.ic_attach_file_black_24dp, 1));
+            db.addUser(new User("Sword Drop", R.drawable.ic_colorize_black_24dp, 1));
 
 
             // Add all the messages required for the chat client to the Messages table

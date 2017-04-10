@@ -141,6 +141,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_USERS, null, values);
     }
 
+    public void addPermissions(Permissions permissions) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_CAN_EDIT, permissions.getCanEdit());
+        values.put(KEY_CAN_READ, permissions.getCanRead());
+        values.put(KEY_CAN_WRITE, permissions.getCanWrite());
+        db.insert(TABLE_PERMISSIONS, null, values);
+    }
+
     /**
      * READ OPERATIONS
      */
@@ -154,13 +163,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
         }
-
-
-        /**
-         * We create a User object using the cursor record
-         */
-
-//        User user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)));
         return user;
     }
 
@@ -225,6 +227,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return messageList;
     }
 
+    // get individual permission
+    public Permissions getPermissions(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Permissions permissions = null;
+        Cursor firstCursor = db.rawQuery("SELECT * FROM " + TABLE_PERMISSIONS, null);
+        Cursor cursor = db.query(TABLE_PERMISSIONS, new String[]{KEY_ID, KEY_CAN_EDIT, KEY_CAN_READ, KEY_CAN_WRITE},  KEY_ID + " = " + String.valueOf(id), null, null, null, null, null);
+        if(cursor.moveToFirst()){
+            permissions = new Permissions(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
+        }
+        return permissions;
+    }
+
     /**
      * UPDATE OPERATIONS
      */
@@ -250,6 +264,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] {String.valueOf(user.getId())});
     }
 
+    // Update the Permissions
+    public int updatePermissions(Permissions permissions) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_CAN_EDIT, permissions.getCanEdit());
+        values.put(KEY_CAN_READ, permissions.getCanRead());
+        values.put(KEY_CAN_WRITE, permissions.getCanWrite());
+        return db.update(TABLE_PERMISSIONS, values, KEY_ID + " = ?",
+                new String[] {String.valueOf(permissions.getId())});
+    }
+
     /**
      * DELETE OPERATIONS
      */
@@ -266,6 +291,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_USERS, KEY_ID + " = ?",
                 new String[] {String.valueOf(user_id)});
+    }
+
+    // Delete a Permission
+    public void deletePermissions(long permissions_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_PERMISSIONS, KEY_ID + " = ?",
+                new String[] {String.valueOf(permissions_id)});
     }
 
 
