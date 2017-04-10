@@ -19,13 +19,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Keep track of the database version
      */
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /**
      * Create the name of the database
      */
 
-    private static final String DATABASE_NAME = "androidproject";
+    private static final String DATABASE_NAME = "icicle";
 
     /**
      * Create the names of all the tables
@@ -33,12 +33,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String TABLE_MESSAGES = "message";
     private static final String TABLE_USERS = "users";
+    private static final String TABLE_PERMISSIONS = "permissions";
 
     /**
      * Common column names
      */
 
     private static final String KEY_ID = "id";
+    private static final String KEY_USER_KEY = "user_key";
 
     /**
      * Message Table column names
@@ -46,7 +48,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String KEY_TIME = "timesent";
     private static final String KEY_CONTENT = "content";
-    private static final String KEY_USER_KEY = "user_key";
 
     /**
      * User Table column names
@@ -54,6 +55,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String KEY_NAME = "name";
     private static final String KEY_IMAGE = "avatar";
+
+    /**
+     * Permissions Table column names
+     */
+
+    private static final String KEY_CAN_EDIT = "canEdit";
+    private static final String KEY_CAN_READ = "canRead";
+    private static final String KEY_CAN_WRITE = "canWrite";
+
 
     /**
      * Create statements for all the tables
@@ -68,6 +78,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, "
             + KEY_IMAGE + " INTEGER)";
 
+    private static final String CREATE_PERMISSIONS_TABLE = "CREATE TABLE " + TABLE_PERMISSIONS
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USER_KEY
+            + " INTEGER REFERENCES " + TABLE_USERS + "(" + KEY_ID + "),"
+            + KEY_CAN_EDIT + " TINYINT(1), " + KEY_CAN_READ + " TINYINT(1), "
+            + KEY_CAN_WRITE + " TINYINT(1)";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -77,6 +93,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_MESSAGES_TABLE);
+        db.execSQL(CREATE_PERMISSIONS_TABLE);
 
     }
 
@@ -86,6 +103,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MESSAGES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERMISSIONS);
         onCreate(db);
     }
 
