@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     cardView:contentPadding="2dp"
     android:id="@+id/messageCardView"
-    android:layout_margin="1dp">
+    android:layout_margin="1dp"
+    android:layoutAnimation="@anim/card_layout_animation">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
