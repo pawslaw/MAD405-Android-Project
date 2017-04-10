@@ -81,10 +81,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + KEY_NAME + " TEXT, "
             + KEY_IMAGE + " INTEGER, "
-            + KEY_PERMS + " INTEGER REFERENCES " + TABLE_PERMISSIONS + "(" + KEY_ID + ")";
+            + KEY_PERMS + " INTEGER REFERENCES " + TABLE_PERMISSIONS + "(" + KEY_ID + "))";
 
     private static final String CREATE_PERMISSIONS_TABLE = "CREATE TABLE " + TABLE_PERMISSIONS
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," 
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + KEY_CAN_EDIT + " TINYINT(1), "
             + KEY_CAN_READ + " TINYINT(1), "
             + KEY_CAN_WRITE + " TINYINT(1))";
@@ -96,9 +96,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Permissions table MUST go before Users as it is references in Users
+        db.execSQL(CREATE_PERMISSIONS_TABLE);
+        // Users table MUST go before Messages as it is references in Users
         db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_MESSAGES_TABLE);
-        db.execSQL(CREATE_PERMISSIONS_TABLE);
 
     }
 
@@ -148,9 +150,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         User user = null;
         Cursor firstCursor = db.rawQuery("SELECT * FROM " + TABLE_USERS, null);
-        Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID, KEY_NAME, KEY_IMAGE},  KEY_ID + " = " + String.valueOf(id), null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID, KEY_NAME, KEY_IMAGE, KEY_PERMS},  KEY_ID + " = " + String.valueOf(id), null, null, null, null, null);
         if(cursor.moveToFirst()){
-            user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)));
+            user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
         }
 
 
