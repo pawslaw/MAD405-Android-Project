@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <EditTextPreference
+        android:defaultValue="Mr. Robot"
+        android:selectAllOnFocus="true"
+        android:title="Username"
+        android:key="userName"
+        android:summary="This is your username"
+        android:singleLine="true" />
 </PreferenceScreen>
