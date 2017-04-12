@@ -7,7 +7,8 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@mipmap/ic_launcher"/>
+            android:mipMap="true"
+            android:src="@drawable/icicle"/>
     </item>
 
 </layer-list>
