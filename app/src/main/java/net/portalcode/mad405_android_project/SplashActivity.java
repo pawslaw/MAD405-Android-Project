@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
 
-    // how long in milli seconds so 1 second here
+    // This is the length of time before the app refreshes the screen and loads the main activity
     private final int WAIT_TIME = 750;
 
 
