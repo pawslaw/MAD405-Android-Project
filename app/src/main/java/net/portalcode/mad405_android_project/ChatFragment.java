@@ -163,7 +163,6 @@ public class ChatFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -175,6 +174,7 @@ public class ChatFragment extends Fragment {
 
         return view;
     }
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

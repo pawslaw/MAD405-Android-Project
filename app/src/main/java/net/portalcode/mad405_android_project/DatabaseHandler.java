@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+
 import java.util.ArrayList;
 
 /**
@@ -19,13 +20,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      * Keep track of the database version
      */
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /**
      * Create the name of the database
      */
 
-    private static final String DATABASE_NAME = "androidproject";
+    private static final String DATABASE_NAME = "icicle";
 
     /**
      * Create the names of all the tables
@@ -33,12 +34,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String TABLE_MESSAGES = "message";
     private static final String TABLE_USERS = "users";
+    private static final String TABLE_PERMISSIONS = "permissions";
 
     /**
      * Common column names
      */
 
     private static final String KEY_ID = "id";
+    private static final String KEY_USER_KEY = "user_key";
 
     /**
      * Message Table column names
@@ -46,7 +49,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String KEY_TIME = "timesent";
     private static final String KEY_CONTENT = "content";
-    private static final String KEY_USER_KEY = "user_key";
 
     /**
      * User Table column names
@@ -54,19 +56,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final String KEY_NAME = "name";
     private static final String KEY_IMAGE = "avatar";
+    private static final String KEY_PERMS = "permissions";
+
+    /**
+     * Permissions Table column names
+     */
+
+    private static final String KEY_CAN_EDIT = "canEdit";
+    private static final String KEY_CAN_READ = "canRead";
+    private static final String KEY_CAN_WRITE = "canWrite";
+
 
     /**
      * Create statements for all the tables
      */
 
     private static final String CREATE_MESSAGES_TABLE = "CREATE TABLE " + TABLE_MESSAGES
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USER_KEY
-            + " INTEGER REFERENCES " + TABLE_USERS + "(" + KEY_ID + "),"
-            + KEY_TIME + " DATETIME NOT NULL," + KEY_CONTENT + " TEXT)";
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_USER_KEY + " INTEGER REFERENCES " + TABLE_USERS + "(" + KEY_ID + "),"
+            + KEY_TIME + " DATETIME NOT NULL,"
+            + KEY_CONTENT + " TEXT)";
 
     private static final String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS
-            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME + " TEXT, "
-            + KEY_IMAGE + " INTEGER)";
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + KEY_NAME + " TEXT, "
+            + KEY_IMAGE + " INTEGER, "
+            + KEY_PERMS + " INTEGER REFERENCES " + TABLE_PERMISSIONS + "(" + KEY_ID + "))";
+
+    private static final String CREATE_PERMISSIONS_TABLE = "CREATE TABLE " + TABLE_PERMISSIONS
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_CAN_EDIT + " TINYINT(1), "
+            + KEY_CAN_READ + " TINYINT(1), "
+            + KEY_CAN_WRITE + " TINYINT(1))";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -75,6 +96,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Permissions table MUST go before Users as it is references in Users
+        db.execSQL(CREATE_PERMISSIONS_TABLE);
+        // Users table MUST go before Messages as it is references in Users
         db.execSQL(CREATE_USERS_TABLE);
         db.execSQL(CREATE_MESSAGES_TABLE);
 
@@ -86,6 +110,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MESSAGES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERMISSIONS);
         onCreate(db);
     }
 
@@ -113,7 +138,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, user.getName());
         values.put(KEY_IMAGE, user.getAvatar());
+        values.put(KEY_PERMS, user.getPermissions());
         db.insert(TABLE_USERS, null, values);
+    }
+
+    public void addPermissions(Permissions permissions) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_CAN_EDIT, permissions.getCanEdit());
+        values.put(KEY_CAN_READ, permissions.getCanRead());
+        values.put(KEY_CAN_WRITE, permissions.getCanWrite());
+        db.insert(TABLE_PERMISSIONS, null, values);
     }
 
     /**
@@ -125,17 +160,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         User user = null;
         Cursor firstCursor = db.rawQuery("SELECT * FROM " + TABLE_USERS, null);
-        Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID, KEY_NAME, KEY_IMAGE},  KEY_ID + " = " + String.valueOf(id), null, null, null, null, null);
+        Cursor cursor = db.query(TABLE_USERS, new String[]{KEY_ID, KEY_NAME, KEY_IMAGE, KEY_PERMS},  KEY_ID + " = " + String.valueOf(id), null, null, null, null, null);
         if(cursor.moveToFirst()){
-            user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)));
+            user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
         }
-
-
-        /**
-         * We create a User object using the cursor record
-         */
-
-//        User user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)));
         return user;
     }
 
@@ -200,6 +228,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return messageList;
     }
 
+    // get individual permission
+    public Permissions getPermissions(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Permissions permissions = null;
+        Cursor firstCursor = db.rawQuery("SELECT * FROM " + TABLE_PERMISSIONS, null);
+        Cursor cursor = db.query(TABLE_PERMISSIONS, new String[]{KEY_ID, KEY_CAN_EDIT, KEY_CAN_READ, KEY_CAN_WRITE},  KEY_ID + " = " + String.valueOf(id), null, null, null, null, null);
+        if(cursor.moveToFirst()){
+            permissions = new Permissions(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
+        }
+        return permissions;
+    }
+
     /**
      * UPDATE OPERATIONS
      */
@@ -221,8 +261,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_NAME, user.getName());
         values.put(KEY_IMAGE, user.getAvatar());
+        values.put(KEY_PERMS, user.getPermissions());
         return db.update(TABLE_USERS, values, KEY_ID + " = ?",
                 new String[] {String.valueOf(user.getId())});
+    }
+
+    // Update the Permissions
+    public int updatePermissions(Permissions permissions) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_CAN_EDIT, permissions.getCanEdit());
+        values.put(KEY_CAN_READ, permissions.getCanRead());
+        values.put(KEY_CAN_WRITE, permissions.getCanWrite());
+        return db.update(TABLE_PERMISSIONS, values, KEY_ID + " = ?",
+                new String[] {String.valueOf(permissions.getId())});
     }
 
     /**
@@ -243,6 +295,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] {String.valueOf(user_id)});
     }
 
+    // Delete a Permission
+    public void deletePermissions(long permissions_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(TABLE_PERMISSIONS, KEY_ID + " = ?",
+                new String[] {String.valueOf(permissions_id)});
+    }
 
 
     /**
