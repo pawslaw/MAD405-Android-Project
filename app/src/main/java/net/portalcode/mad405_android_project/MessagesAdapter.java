@@ -97,7 +97,7 @@ public class MessagesAdapter extends
         // Sets the avatar using the resource id of the drawable image stored in the message
         ImageView avatar = viewHolder.avatar;
         Picasso.with(getContext())
-                .load(R.drawable.ic_attach_file_black_24dp)
+                .load(db.getUser(message.getUser_id()).getAvatar())
                 .placeholder(db.getUser(message.getUser_id()).getAvatar())
                 .into(avatar);
 //        avatar.setImageResource(db.getUser(message.getUser_id()).getAvatar());
