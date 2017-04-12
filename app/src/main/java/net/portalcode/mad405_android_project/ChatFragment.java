@@ -98,69 +98,79 @@ public class ChatFragment extends Fragment {
         sendButton = (Button) view.findViewById(R.id.sendButton);
         rvMessages = (RecyclerView) view.findViewById(R.id.chatList);
 
-        DatabaseHandler db = new DatabaseHandler(getContext());
-        final ArrayList<Message> messageList = db.getAllMessages();
 
-        db.closeDB();
-
-        final MessagesAdapter adapter = new MessagesAdapter(this.getContext(), messageList);
-
-        // Attach the adapter to the recyclerview to populate items
-        rvMessages.setAdapter(adapter);
-
-        // Set layout manager to position the items
-        rvMessages.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
-        // This will be used to send a message once the user is ready to send it.
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        Runnable run = new Runnable() {
             @Override
-            public void onClick(View v) {
-                newMessage =  messageContent.getText().toString();
-
-                // This will get the current time.
-                currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-
-                // This will add the message to the messageList if there are users in the database
+            public void run() {
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                ArrayList<User> test= new ArrayList<User>();
-                System.out.println(db.getAllUsers());
-                System.out.println(test);
+                final ArrayList<Message> messageList = db.getAllMessages();
 
-                // This will test to see if the user is connected to wifi.
-                ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                db.closeDB();
 
-                
-                // Confirm there are valid users in the local database
-                // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
-                //TODO This should probably be updated to confirm the user is a validated user before sending the message
-                if(!db.getAllUsers().equals(test)){
-                    if (mWifi.isConnected() || mData.isConnected()) {
-                        System.out.println("I am adding a message to the chat");
-                        //TODO This currently has a HARDCODED user value of 2. This needs to be changed when ready to work with the login
-                        db.addMessage(new Message(currentDateTimeString, newMessage, 2));
-                        messageList.add(new Message(currentDateTimeString, newMessage, 2));
+                final MessagesAdapter adapter = new MessagesAdapter(getActivity().getBaseContext(), messageList);
 
-                        // This will update the adapter so that the new message will be displayed on the screen
-                        // This will update the view adapter
-                        adapter.notifyDataSetChanged();
+                // Attach the adapter to the recyclerview to populate items
+                rvMessages.setAdapter(adapter);
 
-                        // This will clear the editText
-                        messageContent.setText("");
+                // Set layout manager to position the items
+                rvMessages.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
 
-                        rvMessages.scrollToPosition(adapter.getItemCount()-1);
-                    } else {
-                        Toast.makeText(getContext(), "You are not connected to a network.", Toast.LENGTH_LONG).show();
+                // This will be used to send a message once the user is ready to send it.
+                sendButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        newMessage =  messageContent.getText().toString();
+
+                        // This will get the current time.
+                        currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+
+                        // This will add the message to the messageList if there are users in the database
+                        DatabaseHandler db = new DatabaseHandler(getContext());
+                        ArrayList<User> test= new ArrayList<User>();
+                        System.out.println(db.getAllUsers());
+                        System.out.println(test);
+
+                        // This will test to see if the user is connected to wifi.
+                        ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                        NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+                        // Confirm there are valid users in the local database
+                        // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
+                        //TODO This should probably be updated to confirm the user is a validated user before sending the message
+                        if(!db.getAllUsers().equals(test)){
+                            if (mWifi.isConnected() || mData.isConnected()) {
+                                if(!newMessage.trim().equals("")){
+                                    System.out.println("I am adding a message to the chat");
+                                    db.addMessage(new Message(currentDateTimeString, newMessage, 2));
+                                    messageList.add(new Message(currentDateTimeString, newMessage, 2));
+
+                                    // This will update the adapter so that the new message will be displayed on the screen
+                                    // This will update the view adapter
+                                    adapter.notifyDataSetChanged();
+
+                                    // This will clear the editText
+                                    messageContent.setText("");
+
+                                    rvMessages.scrollToPosition(adapter.getItemCount()-1);
+                                } else {
+                                    Toast.makeText(getContext(), "Please do not send empty messages.", Toast.LENGTH_LONG).show();
+                                }
+
+                            } else {
+                                Toast.makeText(getContext(), "You are not connected to a network.", Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
+                        }
                     }
-                } else {
-                    Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
-                }
+                });
+
+                rvMessages.scrollToPosition(adapter.getItemCount() -1);
 
             }
-        });
-
-        rvMessages.scrollToPosition(adapter.getItemCount() -1);
+        };
+        run.run();
 
         return view;
     }
