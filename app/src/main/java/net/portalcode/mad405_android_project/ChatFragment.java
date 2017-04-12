@@ -138,6 +138,7 @@ public class ChatFragment extends Fragment {
                 if(!db.getAllUsers().equals(test)){
                     if (mWifi.isConnected() || mData.isConnected()) {
                         System.out.println("I am adding a message to the chat");
+                        //TODO This currently has a HARDCODED user value of 2. This needs to be changed when ready to work with the login
                         db.addMessage(new Message(currentDateTimeString, newMessage, 2));
                         messageList.add(new Message(currentDateTimeString, newMessage, 2));
 
