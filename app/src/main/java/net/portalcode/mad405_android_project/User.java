@@ -10,6 +10,7 @@ public class User {
     private int id;
     private String name;
     private int avatar;
+    private int permissions;
 
     // Constructors
     public User() {
@@ -21,10 +22,17 @@ public class User {
         this.avatar = avatar;
     }
 
-    public User(int id, String name, int avatar) {
+    public User( String name, int avatar, int permissions) {
+        this.name = name;
+        this.avatar = avatar;
+        this.permissions = permissions;
+    }
+
+    public User(int id, String name, int avatar, int permissions) {
         this.id = id;
         this.name = name;
         this.avatar = avatar;
+        this.permissions = permissions;
     }
 
     // Getters and Setters
@@ -50,5 +58,13 @@ public class User {
 
     public void setAvatar(int avatar) {
         this.avatar = avatar;
+    }
+
+    public int getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(int permissions) {
+        this.permissions = permissions;
     }
 }

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This linear layout keeps the avatar image and the rest of the message content displayed in one row -->
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    cardView:contentPadding="2dp"
+    android:id="@+id/messageCardView"
+    android:layout_margin="1dp">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
@@ -53,3 +61,4 @@
             android:padding="2dp" />
     </LinearLayout>
 </LinearLayout>
+</android.support.v7.widget.CardView>
