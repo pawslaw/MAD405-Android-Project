@@ -48,9 +48,10 @@
             android:background="@drawable/ic_send_black_24dp"
             style="@style/Widget.AppCompat.Button"
             android:elevation="0dp"
-            android:layout_gravity="bottom"
             android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp" />
     </LinearLayout>
 
 
