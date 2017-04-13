@@ -97,6 +97,7 @@ public class ChatFragment extends Fragment {
         // License Link : https://creativecommons.org/licenses/sampling+/1.0/
         // Download link : http://soundbible.com/tags-swoosh.html
         final MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.sendbeep);
+        final Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         // Attempt to move content up when opening the EditText
         // This does not work all the time. No idea why.
@@ -161,6 +162,11 @@ public class ChatFragment extends Fragment {
                                     messageContent.setText("");
 
                                     rvMessages.scrollToPosition(adapter.getItemCount()-1);
+
+                                    // Make the app vibrate
+                                    vibe.vibrate(100);
+                                    // Play a sent sound
+                                    mp.start();
                                 } else {
                                     Toast.makeText(getContext(), "Please do not send empty messages.", Toast.LENGTH_LONG).show();
                                 }
@@ -171,9 +177,6 @@ public class ChatFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
                         }
-                        Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-                        vibe.vibrate(100);
-                        mp.start();
                     }
                 });
 
