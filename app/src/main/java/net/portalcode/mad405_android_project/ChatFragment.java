@@ -169,13 +169,16 @@ public class ChatFragment extends Fragment {
                                     mp.start();
                                 } else {
                                     Toast.makeText(getContext(), "Please do not send empty messages.", Toast.LENGTH_LONG).show();
+                                    vibe.vibrate(300);
                                 }
 
                             } else {
                                 Toast.makeText(getContext(), "You are not connected to a network.", Toast.LENGTH_LONG).show();
+                                vibe.vibrate(300);
                             }
                         } else {
                             Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
+                            vibe.vibrate(300);
                         }
                     }
                 });
