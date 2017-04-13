@@ -36,16 +36,18 @@
             android:layout_weight="4"
             android:scrollbars="vertical"
             android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:maxLines="3"
-            android:lines="3" />
+            android:maxLines="2"
+            android:lines="2" />
 
         <!-- This is the button the user will use to send their message -->
         <Button
-            android:text="Send"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:id="@+id/sendButton"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:background="@drawable/ic_send_black_24dp"
+            style="@style/Widget.AppCompat.Button"
+            android:elevation="0dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
     </LinearLayout>
 
 
