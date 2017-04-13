@@ -1,10 +1,12 @@
 package net.portalcode.mad405_android_project;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +45,7 @@ public class ChatFragment extends Fragment {
     // Declare variables for views being displayed
     RecyclerView rvMessages;
     Button sendButton;
+
 
     // Declare variables for the message content to be transferred
     EditText messageContent;
@@ -89,6 +92,11 @@ public class ChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.hide();
+
+        // License: Sampling Plus 1.0
+        // License Link : https://creativecommons.org/licenses/sampling+/1.0/
+        // Download link : http://soundbible.com/tags-swoosh.html
+        final MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.sendbeep);
 
         // Attempt to move content up when opening the EditText
         // This does not work all the time. No idea why.
@@ -163,6 +171,9 @@ public class ChatFragment extends Fragment {
                         } else {
                             Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
                         }
+                        Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                        vibe.vibrate(100);
+                        mp.start();
                     }
                 });
 
