@@ -163,6 +163,7 @@ public class ChatFragment extends Fragment {
 
                                     rvMessages.scrollToPosition(adapter.getItemCount()-1);
 
+                                    
                                     // Make the app vibrate
                                     vibe.vibrate(100);
                                     // Play a sent sound
