@@ -266,8 +266,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TIME, message.getTimeSent());
         values.put(KEY_CONTENT, message.getContent());
 
-        return db.update(TABLE_MESSAGES, values, KEY_ID + " = ?",
+        // Separating the return statement so we can close the database here
+        int returnValue = db.update(TABLE_MESSAGES, values, KEY_ID + " = ?",
                 new String[] {String.valueOf(message.getId())});
+        db.close();
+        return returnValue;
     }
 
     // Update the User
@@ -277,8 +280,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_NAME, user.getName());
         values.put(KEY_IMAGE, user.getAvatar());
         values.put(KEY_PERMS, user.getPermissions());
-        return db.update(TABLE_USERS, values, KEY_ID + " = ?",
+
+        // Separating the return statement so we can close the database here
+        int returnValue = db.update(TABLE_USERS, values, KEY_ID + " = ?",
                 new String[] {String.valueOf(user.getId())});
+        db.close();
+        return returnValue;
     }
 
     // Update the Permissions
@@ -288,8 +295,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_CAN_EDIT, permissions.getCanEdit());
         values.put(KEY_CAN_READ, permissions.getCanRead());
         values.put(KEY_CAN_WRITE, permissions.getCanWrite());
-        return db.update(TABLE_PERMISSIONS, values, KEY_ID + " = ?",
+
+        // Separating the return statement so we can close the database here
+        int returnValue = db.update(TABLE_PERMISSIONS, values, KEY_ID + " = ?",
                 new String[] {String.valueOf(permissions.getId())});
+        db.close();
+        return returnValue;
     }
 
     /**
