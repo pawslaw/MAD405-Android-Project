@@ -171,6 +171,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
         }
         // Using close because closeDB does not exist at this point in time.
+        cursor.close();
         db.close();
         return user;
     }
@@ -191,6 +192,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         // Using close because closeDB does not exist at this point in time.
+        cursor.close();
         db.close();
         return userList;
     }
@@ -215,6 +217,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
          */
         Message message = new Message(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
         // Using close because closeDB does not exist at this point in time.
+        cursor.close();
         db.close();
         return message;
     }
@@ -236,6 +239,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         // Using close because closeDB does not exist at this point in time.
+        cursor.close();
         db.close();
         return messageList;
     }
@@ -250,6 +254,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             permissions = new Permissions(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
         }
         // Using close because closeDB does not exist at this point in time.
+        cursor.close();
         db.close();
         return permissions;
     }
