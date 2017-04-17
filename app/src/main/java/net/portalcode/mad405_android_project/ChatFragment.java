@@ -180,6 +180,7 @@ public class ChatFragment extends Fragment {
                             Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
                             vibe.vibrate(300);
                         }
+                        db.closeDB();
                     }
                 });
 

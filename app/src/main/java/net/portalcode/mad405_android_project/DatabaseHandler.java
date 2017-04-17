@@ -131,6 +131,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_TIME, message.getTimeSent());
         values.put(KEY_CONTENT, message.getContent());
         db.insert(TABLE_MESSAGES, null, values);
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
     }
 
     public void addUser(User user) {
@@ -140,6 +142,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_IMAGE, user.getAvatar());
         values.put(KEY_PERMS, user.getPermissions());
         db.insert(TABLE_USERS, null, values);
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
     }
 
     public void addPermissions(Permissions permissions) {
@@ -149,6 +153,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_CAN_READ, permissions.getCanRead());
         values.put(KEY_CAN_WRITE, permissions.getCanWrite());
         db.insert(TABLE_PERMISSIONS, null, values);
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
     }
 
     /**
@@ -164,6 +170,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             user = new User(Integer.parseInt(cursor.getString(0)), cursor.getString(1), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
         }
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
         return user;
     }
 
@@ -182,7 +190,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                userList.add(user);
             }while(cursor.moveToNext());
         }
-
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
         return userList;
     }
 
@@ -205,6 +214,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
          * We create a user object using the cursor record
          */
         Message message = new Message(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
         return message;
     }
 
@@ -224,7 +235,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 messageList.add(message);
             }while(cursor.moveToNext());
         }
-
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
         return messageList;
     }
 
@@ -237,6 +249,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             permissions = new Permissions(Integer.parseInt(cursor.getString(0)), Integer.parseInt(cursor.getString(1)), Integer.parseInt(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
         }
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
         return permissions;
     }
 
@@ -251,6 +265,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_USER_KEY, message.getUser_id());
         values.put(KEY_TIME, message.getTimeSent());
         values.put(KEY_CONTENT, message.getContent());
+
         return db.update(TABLE_MESSAGES, values, KEY_ID + " = ?",
                 new String[] {String.valueOf(message.getId())});
     }
@@ -286,6 +301,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_MESSAGES, KEY_ID + " = ?",
                 new String[] {String.valueOf(message_id)});
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
     }
 
     // Delete a User
@@ -293,6 +310,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_USERS, KEY_ID + " = ?",
                 new String[] {String.valueOf(user_id)});
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
     }
 
     // Delete a Permission
@@ -300,6 +319,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.delete(TABLE_PERMISSIONS, KEY_ID + " = ?",
                 new String[] {String.valueOf(permissions_id)});
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
     }
 
 
