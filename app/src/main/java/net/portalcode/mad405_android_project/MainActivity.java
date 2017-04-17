@@ -102,13 +102,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_chat) {
             trans.replace(R.id.content_main, new ChatFragment());
             trans.commit();
-        } else if (id == R.id.nav_item2) {
+        } else if (id == R.id.nav_calendar) {
 
-        } else if (id == R.id.nav_item3) {
+        } else if (id == R.id.nav_email) {
 
-        } else if (id == R.id.nav_item4) {
-
-        } else if (id == R.id.nav_subitem1) {
+        } else if (id == R.id.nav_call) {
 
         } else if (id == R.id.nav_subitem2) {
             // Add all entries to the database.
