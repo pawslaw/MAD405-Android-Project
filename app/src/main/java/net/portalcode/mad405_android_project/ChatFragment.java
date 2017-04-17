@@ -148,7 +148,10 @@ public class ChatFragment extends Fragment {
                         // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
                         //TODO This should probably be updated to confirm the user is a validated user before sending the message
                         if(!db.getAllUsers().equals(test)){
-                            if (mWifi.isConnected() || mData.isConnected()) {
+                            // The following is commented out as the school tablets do not support Data, only WiFi.
+                            // Should look into a proper fix for this, as this does not allow users with data access to send messages.
+                            //if (mWifi.isConnected() || mData.isConnected()) {
+                            if (mWifi.isConnected()) {
                                 if(!newMessage.trim().equals("")){
                                     System.out.println("I am adding a message to the chat");
                                     db.addMessage(new Message(currentDateTimeString, newMessage, 2));
@@ -163,7 +166,7 @@ public class ChatFragment extends Fragment {
 
                                     rvMessages.scrollToPosition(adapter.getItemCount()-1);
 
-                                    
+
                                     // Make the app vibrate
                                     vibe.vibrate(100);
                                     // Play a sent sound
