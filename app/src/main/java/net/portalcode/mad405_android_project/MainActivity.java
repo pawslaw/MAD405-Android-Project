@@ -1,7 +1,9 @@
 package net.portalcode.mad405_android_project;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +25,11 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager fm;
     public static FloatingActionButton fab;
+    String title = "Work Meeting";
+    String location = "Circuit Logistics";
+    String[] address = {"icicle-support@circuitlogistics.ca"};
+    String subject = "Bug Report: Something Unexpected Happened";
+    String phoneNumber = "1234567890";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +110,27 @@ public class MainActivity extends AppCompatActivity
             trans.replace(R.id.content_main, new ChatFragment());
             trans.commit();
         } else if (id == R.id.nav_calendar) {
-
+            Intent intent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.Events.TITLE, title)
+                    .putExtra(CalendarContract.Events.EVENT_LOCATION, location);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_email) {
-
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, address);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_call) {
-
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phoneNumber));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_subitem2) {
             // Add all entries to the database.
             DatabaseHandler db = new DatabaseHandler(getBaseContext());
