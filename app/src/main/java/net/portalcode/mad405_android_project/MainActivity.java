@@ -18,6 +18,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
@@ -122,7 +125,25 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_item4) {
 
         } else if (id == R.id.nav_subitem1) {
+            JSONObject post_dict = new JSONObject();
 
+            String latestMessage = "0000-00-00 00:00:00.000";
+
+            try {
+                post_dict.put("action" , "getnewmessages");
+                post_dict.put("timestamp" , latestMessage);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //Log.i("LOG", String.valueOf(post_dict));
+
+            if (post_dict.length() > 0) {
+
+                new APICall().execute(String.valueOf(post_dict));
+
+                //Log.i("LOG", );
+            }
         } else if (id == R.id.nav_subitem2) {
             // Add all entries to the database.
             DatabaseHandler db = new DatabaseHandler(getBaseContext());

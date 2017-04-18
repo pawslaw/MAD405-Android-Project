@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -74,7 +75,7 @@ public class APICall extends AsyncTask<String, String, String> {
             if (buffer.length() == 0) {return null;}
             JsonResponse = buffer.toString();
 
-            //Log.i("LOG", JsonResponse);
+            Log.i("LOG", JsonResponse);
             return JsonResponse;
 
         } catch (IOException e) {
@@ -114,7 +115,11 @@ public class APICall extends AsyncTask<String, String, String> {
                         Toast.makeText(MainActivity.context, "Incorrect email or password", Toast.LENGTH_SHORT).show();
                     }
                 });
-            } else {
+//            } else if ((json.optJSONArray("newmessages")).length() != 0) {
+//                Log.i("LOG", "That was a joke... haha. fat chance.");
+//                Log.i("LOG", json.getString("newmessages"));
+
+            } else if (!json.optString("username").isEmpty()) {
                 Log.i("LOG", "LOGGED IN");
 
                 SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
@@ -129,6 +134,24 @@ public class APICall extends AsyncTask<String, String, String> {
                 fragmentTransaction.replace(R.id.content_main, new ChatFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+            } else if (json.optJSONArray("newmessages").length() != 0) {
+
+                //Log.i("LOG", "Test: " + json.optJSONArray("newmessages").toString());
+
+                for (int i = 0; i < json.optJSONArray("newmessages").length(); i++) {
+                    Message message = new Message();
+
+                    message.setContent(json.optJSONArray("newmessages").getJSONObject(i).getString("message"));
+                    message.setId(json.optJSONArray("newmessages").getJSONObject(i).getInt("id"));
+                    message.setTimeSent(json.optJSONArray("newmessages").getJSONObject(i).getString("timestamp"));
+                    message.setUser_id(json.optJSONArray("newmessages").getJSONObject(i).getInt("user"));
+                    //Log.i("LOG", json.optJSONArray("newmessages").getString(i));
+
+                    DatabaseHandler db = new DatabaseHandler(MainActivity.context);
+                    db.addMessage(message);
+
+                    Log.i("LOG", message.toString());
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();

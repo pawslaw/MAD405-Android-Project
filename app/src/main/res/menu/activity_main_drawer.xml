@@ -25,7 +25,7 @@
             <item
                 android:id="@+id/nav_subitem1"
                 android:icon="@drawable/ic_adb_black_24dp"
-                android:title="First Suboption" />
+                android:title="Get New Messages" />
             <item
                 android:id="@+id/nav_subitem2"
                 android:icon="@drawable/ic_adb_black_24dp"
