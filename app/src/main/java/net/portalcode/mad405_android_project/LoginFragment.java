@@ -1,6 +1,8 @@
 package net.portalcode.mad405_android_project;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.logging.Logger;
 
 
 /**
@@ -70,6 +74,16 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+                if (!mData.isConnected() && !mWifi.isConnected()) {
+                    Toast.makeText(getContext(), "Please connect to the internet.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if (emailForm.getText().length() == 0) {
                     Toast.makeText(getContext(), "Please enter your email.", Toast.LENGTH_LONG).show();
                 } else if (passwordForm.getText().length() == 0) {
@@ -85,12 +99,19 @@ public class LoginFragment extends Fragment {
                 try {
                     post_dict.put("email" , user.getEmail());
                     post_dict.put("password", user.getPassword());
+                    post_dict.put("action" , "login");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                //Log.i("LOG", String.valueOf(post_dict));
+
                 if (post_dict.length() > 0) {
+
                     new APICall().execute(String.valueOf(post_dict));
+
+                    //Log.i("LOG", );
                 }
 
             }

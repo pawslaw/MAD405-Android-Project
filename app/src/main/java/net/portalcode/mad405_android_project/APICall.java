@@ -1,11 +1,18 @@
 package net.portalcode.mad405_android_project;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -13,16 +20,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Logger;
 
-import static android.content.ContentValues.TAG;
+import static java.security.AccessController.getContext;
 
 /**
  * Created by web on 2017-04-13.
  */
 
 public class APICall extends AsyncTask<String, String, String> {
+
+    private static final String APIURL = "http://chat.portalcode.net/index.php";
+    SharedPreferences prefs;
 
     public APICall() {}
 
@@ -39,41 +51,31 @@ public class APICall extends AsyncTask<String, String, String> {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         try {
-            URL url = new URL("http://chat.portalcode.net/");
+            URL url = new URL(APIURL);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            // is output buffer writter
+
             urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
-            //set headers and method
+
             Writer writer = new BufferedWriter(new OutputStreamWriter(urlConnection.getOutputStream(), "UTF-8"));
             writer.write(JsonDATA);
-            // json data
+
             writer.close();
             InputStream inputStream = urlConnection.getInputStream();
-            //input stream
+
             StringBuffer buffer = new StringBuffer();
-            if (inputStream == null) {
-                // Nothing to do.
-                return null;
-            }
+            if (inputStream == null) {return null;}
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
             String inputLine;
-            while ((inputLine = reader.readLine()) != null)
-                buffer.append(inputLine + "\n");
-            if (buffer.length() == 0) {
-                // Stream was empty. No point in parsing.
-                return null;
-            }
+            while ((inputLine = reader.readLine()) != null) {buffer.append(inputLine + "\n");}
+            if (buffer.length() == 0) {return null;}
             JsonResponse = buffer.toString();
-            //response data
-            Log.i(TAG,JsonResponse);
-            //send to post execute
+
+            //Log.i("LOG", JsonResponse);
             return JsonResponse;
-
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,15 +88,50 @@ public class APICall extends AsyncTask<String, String, String> {
                 try {
                     reader.close();
                 } catch (final IOException e) {
-                    Log.e(TAG, "Error closing stream", e);
+                    Log.e("LOG", "Error closing stream", e);
                 }
             }
         }
         return null;
     }
 
+    private WeakReference<Context> contextRef;
+
+    public APICall(Context context) {
+        contextRef = new WeakReference<Context>(context);
+    }
+
     @Override
     protected void onPostExecute(String result) {
         // Update UI
+        try {
+            JSONObject json = new JSONObject(result);
+
+            if (json.optString("error").equals("login")) {
+
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    public void run() {
+                        Toast.makeText(MainActivity.context, "Incorrect email or password", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Log.i("LOG", "LOGGED IN");
+
+                SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
+                editor.putString("username", json.getString("username"));
+                editor.putString("password", json.getString("password"));
+                editor.commit();
+
+                FragmentTransaction fragmentTransaction = MainActivity.fm.beginTransaction();
+
+                // Temporarily redirecting to the login screen on bootup
+                //fragmentTransaction.add(R.id.content_main, new MainFragment());
+                fragmentTransaction.replace(R.id.content_main, new ChatFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

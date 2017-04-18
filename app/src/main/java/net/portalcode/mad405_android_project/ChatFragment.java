@@ -1,6 +1,7 @@
 package net.portalcode.mad405_android_project;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -16,6 +17,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -141,6 +145,32 @@ public class ChatFragment extends Fragment {
                         if(!db.getAllUsers().equals(test)){
                             if (mWifi.isConnected() || mData.isConnected()) {
                                 if(!newMessage.trim().equals("")){
+
+                                    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//                                    newMessage = sharedPref.getString("username", "");
+//                                    newMessage += "\n";
+//                                    newMessage += sharedPref.getString("password", "");
+
+                                    JSONObject post_dict = new JSONObject();
+
+                                    try {
+                                        post_dict.put("email" , sharedPref.getString("username", ""));
+                                        post_dict.put("password", sharedPref.getString("password", ""));
+                                        post_dict.put("action" , "sendmessage");
+                                        post_dict.put("message" , newMessage);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    //Log.i("LOG", String.valueOf(post_dict));
+
+                                    if (post_dict.length() > 0) {
+
+                                        new APICall().execute(String.valueOf(post_dict));
+
+                                        //Log.i("LOG", );
+                                    }
+
                                     System.out.println("I am adding a message to the chat");
                                     db.addMessage(new Message(currentDateTimeString, newMessage, 2));
                                     messageList.add(new Message(currentDateTimeString, newMessage, 2));
@@ -151,6 +181,7 @@ public class ChatFragment extends Fragment {
 
                                     // This will clear the editText
                                     messageContent.setText("");
+
 
                                     rvMessages.scrollToPosition(adapter.getItemCount()-1);
                                 } else {
