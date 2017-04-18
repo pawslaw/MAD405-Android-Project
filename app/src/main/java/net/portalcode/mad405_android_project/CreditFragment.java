@@ -4,6 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +29,8 @@ public class CreditFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    protected ViewPager viewPager;
+    private CreditsPagerAdapter creditsPagerAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,7 +69,88 @@ public class CreditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_credit, container, false);
+        View view = inflater.inflate(R.layout.fragment_credit, container, false);
+
+        // This will set the PagerAdapter to the adapter built for the Member information
+        creditsPagerAdapter = new CreditsPagerAdapter((getChildFragmentManager()));
+        viewPager = (ViewPager) view.findViewById(R.id.creditcontent);
+        viewPager.setPageTransformer(true, new DepthPageTransformer());
+        viewPager.setAdapter(creditsPagerAdapter);
+        return view;
+    }
+
+    /**
+     * This is the CreditsPagerAdapter for use in displaying content in the ViewPager
+     */
+    public class CreditsPagerAdapter extends FragmentPagerAdapter {
+        public CreditsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch(position) {
+                case 0:
+                    return CreditDisplayFragment.newInstance();
+                case 1:
+                    return CreditDisplayFragment.newInstance();
+                case 2:
+                    return CreditDisplayFragment.newInstance();
+                case 3:
+                    return CreditDisplayFragment.newInstance();
+                case 4:
+                    return CreditDisplayFragment.newInstance();
+                case 5:
+                    return CreditDisplayFragment.newInstance();
+                default:
+                    return CreditDisplayFragment.newInstance();
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 6;
+        }
+    }
+
+    /**
+     * This is the DepthPageTransformer, as provided by Google for use in ViewPagers.
+     */
+    public class DepthPageTransformer implements ViewPager.PageTransformer {
+        private static final float MIN_SCALE = 0.75f;
+
+        public void transformPage(View view, float position) {
+            int pageWidth = view.getWidth();
+
+            if (position < -1) { // [-Infinity,-1)
+                // This page is way off-screen to the left.
+                view.setAlpha(0);
+
+            } else if (position <= 0) { // [-1,0]
+                // Use the default slide transition when moving to the left page
+                view.setAlpha(1);
+                view.setTranslationX(0);
+                view.setScaleX(1);
+                view.setScaleY(1);
+
+            } else if (position <= 1) { // (0,1]
+                // Fade the page out.
+                view.setAlpha(1 - position);
+
+                // Counteract the default slide transition
+                view.setTranslationX(pageWidth * -position);
+
+                // Scale the page down (between MIN_SCALE and 1)
+                float scaleFactor = MIN_SCALE
+                        + (1 - MIN_SCALE) * (1 - Math.abs(position));
+                view.setScaleX(scaleFactor);
+                view.setScaleY(scaleFactor);
+
+            } else { // (1,+Infinity]
+                // This page is way off-screen to the right.
+                view.setAlpha(0);
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

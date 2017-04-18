@@ -2,13 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.portalcode.mad405_android_project.CreditFragment">
+    tools:context="net.portalcode.mad405_android_project.CreditDisplayFragment">
 
-    <android.support.v4.view.ViewPager
-        android:layout_width="wrap_content"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/creditcontent">
-
-    </android.support.v4.view.ViewPager>
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>
