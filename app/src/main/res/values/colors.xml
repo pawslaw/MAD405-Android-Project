@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="navigationDrawerStart">#81C784</color>
-    <color name="navigationDrawerCenter">#4CAF50</color>
-    <color name="navigationDrawerEnd">#2E7D32</color>
+    <color name="colorPrimary">@color/graphite</color>
+    <color name="colorPrimaryDark">@color/hypothermia</color>
+    <color name="colorAccent">@color/avalanche</color>
+    <color name="navigationDrawerStart">@color/graphite</color>
+    <color name="navigationDrawerCenter">@color/avalanche</color>
+    <color name="navigationDrawerEnd">@color/graphite</color>
 
     <!-- Palette A -->
     <color name="cleanSidewalk">#DDD2C5</color>
     <color name="dirtySidewalk">#989389</color>
     <color name="icicle">#A8C4D3</color>
-    <color name="avalanche">#6188B0</color>
-    <color name="hypothermia">#3A434D</color>
+    <color name="avalanche">#6188b0</color>
+    <color name="hypothermia">#3a434d</color>
 
     <!-- Palette B -->
     <color name="concrete">#CCCCCC</color>
     <color name="highbeam">#EFFEFF</color>
     <color name="ice">#C8E8E9</color>
     <color name="nevada">#667378</color>
-    <color name="graphite">#48485C</color>
+    <color name="graphite">#48485c</color>
 
 
 </resources>

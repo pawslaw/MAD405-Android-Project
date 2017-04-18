@@ -140,25 +140,29 @@ public class ChatFragment extends Fragment {
                         //TODO This should probably be updated to confirm the user is a validated user before sending the message
                         if(!db.getAllUsers().equals(test)){
                             if (mWifi.isConnected() || mData.isConnected()) {
-                                System.out.println("I am adding a message to the chat");
-                                db.addMessage(new Message(currentDateTimeString, newMessage, 2));
-                                messageList.add(new Message(currentDateTimeString, newMessage, 2));
+                                if(!newMessage.trim().equals("")){
+                                    System.out.println("I am adding a message to the chat");
+                                    db.addMessage(new Message(currentDateTimeString, newMessage, 2));
+                                    messageList.add(new Message(currentDateTimeString, newMessage, 2));
 
-                                // This will update the adapter so that the new message will be displayed on the screen
-                                // This will update the view adapter
-                                adapter.notifyDataSetChanged();
+                                    // This will update the adapter so that the new message will be displayed on the screen
+                                    // This will update the view adapter
+                                    adapter.notifyDataSetChanged();
 
-                                // This will clear the editText
-                                messageContent.setText("");
+                                    // This will clear the editText
+                                    messageContent.setText("");
 
-                                rvMessages.scrollToPosition(adapter.getItemCount()-1);
+                                    rvMessages.scrollToPosition(adapter.getItemCount()-1);
+                                } else {
+                                    Toast.makeText(getContext(), "Please do not send empty messages.", Toast.LENGTH_LONG).show();
+                                }
+
                             } else {
                                 Toast.makeText(getContext(), "You are not connected to a network.", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
@@ -170,6 +174,7 @@ public class ChatFragment extends Fragment {
 
         return view;
     }
+
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
