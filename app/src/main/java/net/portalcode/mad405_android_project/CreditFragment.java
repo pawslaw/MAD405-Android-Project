@@ -93,8 +93,8 @@ public class CreditFragment extends Fragment {
                 case 0:
                     //                           Feature name, Author Name, License Name, Feature Description
                     return CreditDisplayFragment.newInstance("Send Sound", "http://soundbible.com/", "Sampling Plus 1.0", "This is the sound effect used when sending a message. It is used to notify the user that their message has been sent.");
-                case 1:
-                    return CreditDisplayFragment.newInstance("WCViewPagerIndicators", "Darwin Morocho (MorochoRochaDarwin)", "MIT License", "This is the indicator at the bottom of this page to show how many pages are available to swipe through using the ViewPager. This was an aesthetic choice over including a set of left and right buttons.");
+//                case 1:
+//                    return CreditDisplayFragment.newInstance("WCViewPagerIndicators", "Darwin Morocho (MorochoRochaDarwin)", "MIT License", "This is the indicator at the bottom of this page to show how many pages are available to swipe through using the ViewPager. This was an aesthetic choice over including a set of left and right buttons.");
                 default:
                     return CreditDisplayFragment.newInstance(null, null, null, null);
             }
@@ -102,7 +102,7 @@ public class CreditFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 6;
+            return 1;
         }
     }
 
