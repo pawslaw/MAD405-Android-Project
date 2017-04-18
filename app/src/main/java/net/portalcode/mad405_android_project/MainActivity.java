@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
         ChatFragment.OnFragmentInteractionListener,
-        CreditFragment.OnFragmentInteractionListener{
+        CreditFragment.OnFragmentInteractionListener,
+        CreditDisplayFragment.OnFragmentInteractionListener{
 
     FragmentManager fm;
     public static FloatingActionButton fab;

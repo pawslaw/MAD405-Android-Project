@@ -91,19 +91,12 @@ public class CreditFragment extends Fragment {
         public Fragment getItem(int position) {
             switch(position) {
                 case 0:
-                    return CreditDisplayFragment.newInstance();
+                    //                           Feature name, Author Name, License Name, Feature Description
+                    return CreditDisplayFragment.newInstance("Send Sound", "http://soundbible.com/", "Sampling Plus 1.0", "This is the sound effect used when sending a message. It is used to notify the user that their message has been sent.");
                 case 1:
-                    return CreditDisplayFragment.newInstance();
-                case 2:
-                    return CreditDisplayFragment.newInstance();
-                case 3:
-                    return CreditDisplayFragment.newInstance();
-                case 4:
-                    return CreditDisplayFragment.newInstance();
-                case 5:
-                    return CreditDisplayFragment.newInstance();
+                    return CreditDisplayFragment.newInstance("WCViewPagerIndicators", "Darwin Morocho (MorochoRochaDarwin)", "MIT License", "This is the indicator at the bottom of this page to show how many pages are available to swipe through using the ViewPager. This was an aesthetic choice over including a set of left and right buttons.");
                 default:
-                    return CreditDisplayFragment.newInstance();
+                    return CreditDisplayFragment.newInstance(null, null, null, null);
             }
         }
 
