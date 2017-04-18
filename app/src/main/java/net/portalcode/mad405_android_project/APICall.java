@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import static java.security.AccessController.getContext;
+import static net.portalcode.mad405_android_project.ChatFragment.adapter;
 
 /**
  * Created by web on 2017-04-13.
@@ -149,6 +150,9 @@ public class APICall extends AsyncTask<String, String, String> {
 
                     DatabaseHandler db = new DatabaseHandler(MainActivity.context);
                     db.addMessage(message);
+
+                    adapter.notifyDataSetChanged();
+
 
                     Log.i("LOG", message.toString());
                 }

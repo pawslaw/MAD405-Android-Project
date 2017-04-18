@@ -21,6 +21,8 @@ import android.view.MenuItem;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static net.portalcode.mad405_android_project.ChatFragment.adapter;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
@@ -129,9 +131,15 @@ public class MainActivity extends AppCompatActivity
 
             String latestMessage = "0000-00-00 00:00:00.000";
 
+            DatabaseHandler db = new DatabaseHandler(getBaseContext());
+            Message message = db.getLatestMessage();
+            db.closeDB();
+
+
+
             try {
                 post_dict.put("action" , "getnewmessages");
-                post_dict.put("timestamp" , latestMessage);
+                post_dict.put("timestamp" , message.getTimeSent());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -144,6 +152,8 @@ public class MainActivity extends AppCompatActivity
 
                 //Log.i("LOG", );
             }
+
+            adapter.notifyDataSetChanged();
         } else if (id == R.id.nav_subitem2) {
             // Add all entries to the database.
             DatabaseHandler db = new DatabaseHandler(getBaseContext());
@@ -166,21 +176,6 @@ public class MainActivity extends AppCompatActivity
             db.addUser(new User("DJ Disco", R.drawable.ic_album_black_24dp, 1));
             db.addUser(new User("Mr. Helpful", R.drawable.ic_attach_file_black_24dp, 1));
             db.addUser(new User("Sword Drop", R.drawable.ic_colorize_black_24dp, 1));
-
-
-            // Add all the messages required for the chat client to the Messages table
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", 1));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Sed malesuada, enim sit amet facilisis mattis, est lorem vestibulum lectus, at laoreet odio odio at ligula. Vivamus id facilisis leo, ac vehicula orci.", 2));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Aenean nulla tellus, euismod a vestibulum eget, consequat et lectus. ", 3));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Aliquam at tempus enim. Praesent mattis sed nisi in dignissim. Maecenas sit amet malesuada sapien. Praesent eget erat ut nisi eleifend feugiat.", 4));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Cras auctor, erat rutrum auctor tincidunt, elit libero sollicitudin diam, eu pellentesque nulla massa at ante. Maecenas dolor neque, tempor ut cursus et, malesuada eu neque. Vestibulum ac hendrerit nunc. Integer eleifend ex in mi ultrices elementum. Ut facilisis id libero quis dignissim. Vestibulum venenatis euismod rhoncus.", 5));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Aenean eleifend, magna nec interdum luctus, ligula sem pulvinar nisi, ut consectetur turpis mi in tortor. Phasellus sagittis ullamcorper odio, ac iaculis quam gravida eget.", 6));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Sed eros orci, sollicitudin sit amet ex at, mollis ullamcorper mauris. Nunc nec consectetur dolor.", 1));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Suspendisse sapien mauris, pulvinar sed augue elementum, tincidunt lacinia mi.", 2));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "In vel porta augue. Praesent lacinia ex ac cursus posuere. Cras ornare volutpat velit, id aliquam augue dictum vitae.", 3));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Integer varius est id lectus fermentum, et tempor arcu pretium. Cras posuere maximus ipsum.", 4));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Proin posuere arcu a iaculis dictum. Sed suscipit aliquam lorem eget mollis.", 5));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Donec sollicitudin elit a sem cursus lacinia. Nunc quis ligula eget sapien sagittis porttitor id vitae felis. Sed commodo arcu sit amet magna laoreet, quis eleifend nibh ultricies. ", 6));
 
             db.closeDB();
         }

@@ -86,6 +86,8 @@ public class ChatFragment extends Fragment {
         }
     }
 
+    public static MessagesAdapter adapter = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -111,7 +113,7 @@ public class ChatFragment extends Fragment {
 
                 db.closeDB();
 
-                final MessagesAdapter adapter = new MessagesAdapter(getActivity().getBaseContext(), messageList);
+                adapter = new MessagesAdapter(getActivity().getBaseContext(), messageList);
 
                 // Attach the adapter to the recyclerview to populate items
                 rvMessages.setAdapter(adapter);
@@ -171,9 +173,36 @@ public class ChatFragment extends Fragment {
                                         //Log.i("LOG", );
                                     }
 
-                                    System.out.println("I am adding a message to the chat");
-                                    db.addMessage(new Message(currentDateTimeString, newMessage, 2));
-                                    messageList.add(new Message(currentDateTimeString, newMessage, 2));
+                                    String latestMessage = "0000-00-00 00:00:00.000";
+                                    Message message = db.getLatestMessage();
+
+
+                                    try {
+                                        post_dict.put("action" , "getnewmessages");
+                                        post_dict.put("timestamp" , message.getTimeSent());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    //Log.i("LOG", String.valueOf(post_dict));
+
+                                    if (post_dict.length() > 0) {
+
+                                        new APICall().execute(String.valueOf(post_dict));
+
+                                        //Log.i("LOG", );
+                                    }
+
+                                    try {
+                                        Thread.sleep(1000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                    //System.out.println("I am adding a message to the chat");
+                                    //db.addMessage(new Message(currentDateTimeString, newMessage, 2));
+                                    //messageList.add(new Message(currentDateTimeString, newMessage, 2));
 
                                     // This will update the adapter so that the new message will be displayed on the screen
                                     // This will update the view adapter
