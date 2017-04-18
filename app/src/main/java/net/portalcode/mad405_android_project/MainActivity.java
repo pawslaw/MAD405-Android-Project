@@ -21,7 +21,8 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
-        ChatFragment.OnFragmentInteractionListener{
+        ChatFragment.OnFragmentInteractionListener,
+        CreditFragment.OnFragmentInteractionListener{
 
     FragmentManager fm;
     public static FloatingActionButton fab;
@@ -170,6 +171,9 @@ public class MainActivity extends AppCompatActivity
             db.addMessage(new Message("Mar 10, 2017 1:03pm", "Donec sollicitudin elit a sem cursus lacinia. Nunc quis ligula eget sapien sagittis porttitor id vitae felis. Sed commodo arcu sit amet magna laoreet, quis eleifend nibh ultricies. ", 6));
 
             db.closeDB();
+        } else if (id == R.id.nav_credits) {
+            trans.replace(R.id.content_main, new CreditFragment());
+            trans.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
