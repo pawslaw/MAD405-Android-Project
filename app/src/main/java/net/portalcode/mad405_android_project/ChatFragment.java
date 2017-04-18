@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 
 /**
@@ -86,6 +88,7 @@ public class ChatFragment extends Fragment {
         }
     }
 
+    public static ArrayList<Message> messageList;
     public static MessagesAdapter adapter = null;
 
     @Override
@@ -109,7 +112,7 @@ public class ChatFragment extends Fragment {
             @Override
             public void run() {
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                final ArrayList<Message> messageList = db.getAllMessages();
+                messageList = db.getAllMessages();
 
                 db.closeDB();
 
@@ -148,6 +151,8 @@ public class ChatFragment extends Fragment {
                             if (mWifi.isConnected() || mData.isConnected()) {
                                 if(!newMessage.trim().equals("")){
 
+                                    Log.i("LOG", String.valueOf(adapter.getItemCount()));
+
                                     SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 //                                    newMessage = sharedPref.getString("username", "");
 //                                    newMessage += "\n";
@@ -173,9 +178,10 @@ public class ChatFragment extends Fragment {
                                         //Log.i("LOG", );
                                     }
 
+
                                     String latestMessage = "0000-00-00 00:00:00.000";
                                     Message message = db.getLatestMessage();
-
+                                    Log.i("LOG", message.toString());
 
                                     try {
                                         post_dict.put("action" , "getnewmessages");
@@ -193,19 +199,17 @@ public class ChatFragment extends Fragment {
                                         //Log.i("LOG", );
                                     }
 
-                                    try {
-                                        Thread.sleep(1000);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-
-
+                                    db.closeDB();
+                                    db = new DatabaseHandler(getContext());
                                     //System.out.println("I am adding a message to the chat");
                                     //db.addMessage(new Message(currentDateTimeString, newMessage, 2));
                                     //messageList.add(new Message(currentDateTimeString, newMessage, 2));
+                                    messageList = db.getAllMessages();
+                                    Log.i("LOGSCREAM", "THE MESSAGE WAS " + String.valueOf(messageList.get(messageList.size()-1).getContent()));
 
                                     // This will update the adapter so that the new message will be displayed on the screen
                                     // This will update the view adapter
+                                    //adapter.
                                     adapter.notifyDataSetChanged();
 
                                     // This will clear the editText

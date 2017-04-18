@@ -133,6 +133,10 @@ public class MainActivity extends AppCompatActivity
 
             DatabaseHandler db = new DatabaseHandler(getBaseContext());
             Message message = db.getLatestMessage();
+            if (message == null) {
+                message = new Message();
+                message.setTimeSent(latestMessage);
+            }
             db.closeDB();
 
 

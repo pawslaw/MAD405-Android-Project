@@ -138,7 +138,7 @@ public class APICall extends AsyncTask<String, String, String> {
             } else if (json.optJSONArray("newmessages").length() != 0) {
 
                 //Log.i("LOG", "Test: " + json.optJSONArray("newmessages").toString());
-
+                DatabaseHandler db = new DatabaseHandler(MainActivity.context);
                 for (int i = 0; i < json.optJSONArray("newmessages").length(); i++) {
                     Message message = new Message();
 
@@ -148,14 +148,17 @@ public class APICall extends AsyncTask<String, String, String> {
                     message.setUser_id(json.optJSONArray("newmessages").getJSONObject(i).getInt("user"));
                     //Log.i("LOG", json.optJSONArray("newmessages").getString(i));
 
-                    DatabaseHandler db = new DatabaseHandler(MainActivity.context);
+
                     db.addMessage(message);
 
-                    adapter.notifyDataSetChanged();
 
 
-                    Log.i("LOG", message.toString());
+
+                    Log.i("LOGSCREAM", message.toString());
                 }
+                ChatFragment.messageList = db.getAllMessages();
+                adapter.notifyDataSetChanged();
+                db.closeDB();
             }
         } catch (JSONException e) {
             e.printStackTrace();
