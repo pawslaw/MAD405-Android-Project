@@ -51,12 +51,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // As soon as the app opens, change the current view to the Main Fragment
-        fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.content_main, new MainFragment());
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        if(savedInstanceState == null){
+            // As soon as the app opens, change the current view to the Main Fragment
+            fm = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.add(R.id.content_main, new MainFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
+
     }
 
     @Override
