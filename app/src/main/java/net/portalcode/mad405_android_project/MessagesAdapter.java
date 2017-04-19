@@ -87,14 +87,17 @@ public class MessagesAdapter extends
 
         // Set the Name for each message based on the userID of the current message
         TextView name = viewHolder.name;
+
+        //TODO: Convert this to validate the users identity and only change THEIR color
         // This is the preferences file the user can make changes to
         SharedPreferences preferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         // This is the preferences file the login information is stored in
-        SharedPreferences sharedPref = MainActivity.sharedPref;
+//        SharedPreferences sharedPref = MainActivity.sharedPref;
         int selected = preferences.getInt("color", 1);
-        if(sharedPref.getString("username", "") == (db.getUser(message.getUser_id()).getName())){
-            name.setTextColor(selected);
-        }
+//        if(sharedPref.getString("username", "") == (db.getUser(message.getUser_id()).getName())){
+//            name.setTextColor(selected);
+//        }
+        name.setTextColor(selected);
 
         // This sets it to a string of the user id.
         name.setText((db.getUser(message.getUser_id()).getName()));
