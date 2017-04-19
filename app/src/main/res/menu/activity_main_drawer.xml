@@ -26,6 +26,10 @@
                 android:id="@+id/nav_subitem2"
                 android:icon="@drawable/ic_adb_black_24dp"
                 android:title="Add Entries to Database" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="Log Out" />
         </menu>
     </item>
 

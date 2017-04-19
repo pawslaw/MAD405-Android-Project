@@ -87,11 +87,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState == null){
+        if(savedInstanceState == null && (sharedPref.getString("username", "").equals(""))){
+            System.out.println(sharedPref.getString("username", ""));
             // As soon as the app opens, change the current view to the Main Fragment
             fm = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.add(R.id.content_main, new LoginFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else {
+            System.out.println(sharedPref.getString("username", ""));
+            fm = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.add(R.id.content_main, new ChatFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
@@ -140,7 +148,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction trans = fm.beginTransaction();
 
-        if (id == R.id.nav_chat) {
+        if (id == R.id.nav_chat && !(sharedPref.getString("username", "").equals(""))) {
             trans.replace(R.id.content_main, new ChatFragment());
             trans.commit();
         } else if (id == R.id.nav_calendar) {
@@ -189,6 +197,15 @@ public class MainActivity extends AppCompatActivity
             db.addUser(new User("Sword Drop", R.drawable.ic_colorize_black_24dp, 1));
 
             db.closeDB();
+        } else if(id == R.id.nav_logout) {
+            SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
+            editor.putString("username", "");
+            editor.putString("password", "");
+            editor.apply();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            finish();
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

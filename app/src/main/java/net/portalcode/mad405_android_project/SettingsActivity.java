@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -54,6 +55,7 @@ public class SettingsActivity extends PreferenceActivity {
         finish();
         startActivity(intent);
     }
+
 
     public static class ChatPrefFragment extends PreferenceFragment {
 

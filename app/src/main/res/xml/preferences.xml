@@ -4,6 +4,13 @@
         android:title="Customize the App"
         android:key="pref_user_customization">
         <SwitchPreference
+            android:summaryOn="Log out"
+            android:summaryOff="Log out"
+            android:switchTextOff="Log in"
+            android:switchTextOn="Log out"
+            android:id="@+id/logoutpref"
+            android:key="logout"/>
+        <SwitchPreference
             android:summaryOn="Choose between Night and Day themes(restarts the app)"
             android:summaryOff="Choose between Night and Day themes(restarts the app)"
             android:switchTextOff="Day"
