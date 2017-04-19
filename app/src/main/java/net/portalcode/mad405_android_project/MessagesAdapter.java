@@ -11,6 +11,8 @@ package net.portalcode.mad405_android_project;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -105,17 +107,29 @@ public class MessagesAdapter extends
 
 
         boolean useDayMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
+        final int version = Build.VERSION.SDK_INT;
 
-        if(useDayMode) {
+        // This makes sure to use the correct version of the command based on android version number
+        if(useDayMode && version < 23) {
             card.setBackgroundColor(getContext().getResources().getColor(R.color.freshSidewalk));
             name.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
             time.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
             messageContent.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
-        } else {
+        } else if(useDayMode && version >= 23) {
+            card.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.freshSidewalk));
+            name.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            time.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            messageContent.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        } else if(!useDayMode && version < 23){
             card.setBackgroundColor(getContext().getResources().getColor(R.color.lightGraphite));
             name.setTextColor(getContext().getResources().getColor(R.color.frostbite));
             time.setTextColor(getContext().getResources().getColor(R.color.frostbite));
             messageContent.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+        } else {
+            card.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightGraphite));
+            name.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            time.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            messageContent.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
         }
 
 
