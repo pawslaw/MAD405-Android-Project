@@ -193,6 +193,12 @@ public class ChatFragment extends Fragment {
 
                                     String latestMessage = "0000-00-00 00:00:00.000";
                                     Message message = db.getLatestMessage();
+
+                                    if (message == null) {
+                                        message = new Message();
+                                        message.setTimeSent(latestMessage);
+                                    }
+
                                     Log.i("LOG", message.toString());
 
                                     try {
@@ -217,7 +223,7 @@ public class ChatFragment extends Fragment {
                                     //db.addMessage(new Message(currentDateTimeString, newMessage, 2));
                                     //messageList.add(new Message(currentDateTimeString, newMessage, 2));
                                     messageList = db.getAllMessages();
-                                    Log.i("LOGSCREAM", "THE MESSAGE WAS " + String.valueOf(messageList.get(messageList.size()-1).getContent()));
+                                    //Log.i("LOGSCREAM", "THE MESSAGE WAS " + String.valueOf(messageList.get(messageList.size()-1).getContent()));
 
                                     // This will update the adapter so that the new message will be displayed on the screen
                                     // This will update the view adapter
