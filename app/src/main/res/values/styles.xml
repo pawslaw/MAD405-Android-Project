@@ -27,12 +27,12 @@
     <!-- Light application theme. -->
     <style name="AppTheme.Light" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/highbeam</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/cleanSidewalk</item>
+        <item name="colorPrimaryDark">@color/dirtySidewalk</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">@color/highbeam</item>
-        <item name="android:textColorPrimary">@color/highbeam</item>
-        <item name="android:textColorSecondary">@color/ice</item>
+        <item name="android:colorBackground">@color/dirtySidewalk</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorPrimaryDark</item>
     </style>
 
     <style name="AppTheme.Light.NoActionBar">

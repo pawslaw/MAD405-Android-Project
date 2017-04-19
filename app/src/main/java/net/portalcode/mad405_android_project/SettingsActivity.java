@@ -17,15 +17,17 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        // This will make the app switch themes if necessary
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useNightMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
-
         if(useNightMode) {
             setTheme(R.style.AppTheme_Light_NoActionBar);
         }
 
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new ChatPrefFragment()).commit();
+
+        // This will tell the app to listen for a change to the color theme and run code when it has changed.
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         sharedPref.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
     }
@@ -42,6 +44,7 @@ public class SettingsActivity extends PreferenceActivity {
         }
     };
 
+    // This code will switch the preferences value for the theme
     private void toggleTheme(boolean nightMode) {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(PREF_NIGHT_MODE, nightMode);
