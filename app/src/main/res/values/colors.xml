@@ -16,8 +16,8 @@
 
     <!-- Palette B -->
     <color name="concrete">#CCCCCC</color>
-    <color name="highbeam">#EFFEFF</color>
-    <color name="ice">#C8E8E9</color>
+    <color name="highbeam">#effeff</color>
+    <color name="ice">#c8e8e9</color>
     <color name="nevada">#667378</color>
     <color name="graphite">#48485c</color>
 
