@@ -9,7 +9,10 @@ package net.portalcode.mad405_android_project;
 // Need a reycler view because of the content in the list
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,8 @@ import java.util.List;
  */
 public class MessagesAdapter extends
         RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
+
+    private static final String PREFS_NAME = "prefs";
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Declare variables for the items to display in each row
@@ -82,6 +87,14 @@ public class MessagesAdapter extends
 
         // Set the Name for each message based on the userID of the current message
         TextView name = viewHolder.name;
+        // This is the preferences file the user can make changes to
+        SharedPreferences preferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        // This is the preferences file the login information is stored in
+        SharedPreferences sharedPref = MainActivity.sharedPref;
+        int selected = preferences.getInt("color", 1);
+        if(sharedPref.getString("username", "") == (db.getUser(message.getUser_id()).getName())){
+            name.setTextColor(selected);
+        }
 
         // This sets it to a string of the user id.
         name.setText((db.getUser(message.getUser_id()).getName()));

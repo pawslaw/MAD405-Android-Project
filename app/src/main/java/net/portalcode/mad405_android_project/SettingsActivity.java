@@ -2,17 +2,21 @@ package net.portalcode.mad405_android_project;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.hardware.camera2.params.ColorSpaceTransform;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 public class SettingsActivity extends PreferenceActivity {
 
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_NIGHT_MODE = "night_mode";
+    private static final String PREF_USER_COLOR = "color";
     public static SharedPreferences sharedPref;
 
     @Override
@@ -41,6 +45,11 @@ public class SettingsActivity extends PreferenceActivity {
             if(key.equals("theme")){
                 Boolean themeChoice = sharedPref.getBoolean(key, false);
                 toggleTheme(themeChoice);
+            } else if(key.equals("color")){
+                int colorChoice = sharedPref.getInt(key, 0);
+                Log.i("LOG", "black:" + Color.BLACK);
+                Log.i("LOG", "selected" + colorChoice);
+                changeUserColor(colorChoice);
             }
         }
     };
@@ -50,6 +59,16 @@ public class SettingsActivity extends PreferenceActivity {
         SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
         editor.putBoolean(PREF_NIGHT_MODE, nightMode);
         editor.apply();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(intent);
+    }
+
+    private void changeUserColor(int color) {
+        SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
+        editor.putInt(PREF_USER_COLOR, color);
+        editor.commit();
 
         Intent intent = new Intent(this, MainActivity.class);
         finish();
