@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">MAD405-Android-Project</string>
+    <string name="app_name">Icicle</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="navigation_drawer_title">@string/app_name</string>
-    <string name="navigation_drawer_email">PLACE EMAIL HERE</string>
+    <string name="navigation_drawer_email">icicle-support@circuitlogistics.ca</string>
 
     <string name="profile_settings">Profile</string>
 
