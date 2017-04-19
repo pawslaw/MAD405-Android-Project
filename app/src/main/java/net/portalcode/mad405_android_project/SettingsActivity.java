@@ -12,7 +12,7 @@ public class SettingsActivity extends PreferenceActivity {
 
     private static final String PREFS_NAME = "prefs";
     private static final String PREF_NIGHT_MODE = "night_mode";
-    SharedPreferences SP;
+    public static SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +20,14 @@ public class SettingsActivity extends PreferenceActivity {
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean useNightMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
 
-//        if(useNightMode) {
-//            setTheme(R.style.AppTheme_Dark_NoActionBar);
-//        }
+        if(useNightMode) {
+            setTheme(R.style.AppTheme_Light_NoActionBar);
+        }
 
         super.onCreate(savedInstanceState);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new ChatPrefFragment()).commit();
-        SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        SP.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        sharedPref.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
     }
 
     // This listens for changes to values in Shared Preferences
@@ -36,7 +36,7 @@ public class SettingsActivity extends PreferenceActivity {
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
             if(key.equals("theme")){
-                Boolean themeChoice = SP.getBoolean(key, false);
+                Boolean themeChoice = sharedPref.getBoolean(key, false);
                 toggleTheme(themeChoice);
             }
         }
@@ -47,7 +47,7 @@ public class SettingsActivity extends PreferenceActivity {
         editor.putBoolean(PREF_NIGHT_MODE, nightMode);
         editor.apply();
 
-        Intent intent = new Intent(this, SettingsActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         finish();
         startActivity(intent);
     }

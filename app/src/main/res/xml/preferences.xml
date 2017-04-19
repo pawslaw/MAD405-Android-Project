@@ -4,8 +4,8 @@
         android:title="Customize the App"
         android:key="pref_user_customization">
         <SwitchPreference
-            android:summaryOn="Choose between Night and Day themes"
-            android:summaryOff="Choose between Night and Day themes"
+            android:summaryOn="Choose between Night and Day themes(restarts the app)"
+            android:summaryOff="Choose between Night and Day themes(restarts the app)"
             android:switchTextOff="Day"
             android:switchTextOn="Night"
             android:key="theme"/>

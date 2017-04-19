@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity
         ChatFragment.OnFragmentInteractionListener,
         LoginFragment.OnFragmentInteractionListener{
 
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_NIGHT_MODE = "night_mode";
+
     public static FragmentManager fm;
     public static FloatingActionButton fab;
 
@@ -47,8 +51,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useNightMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
+
+        if(useNightMode) {
+            setTheme(R.style.AppTheme_Light_NoActionBar);
+        }
+        super.onCreate(savedInstanceState);
         sharedPref = getPreferences(Context.MODE_PRIVATE);
 
         setContentView(R.layout.activity_main);
