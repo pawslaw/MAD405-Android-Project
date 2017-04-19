@@ -1,6 +1,7 @@
 package net.portalcode.mad405_android_project;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +21,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Logger;
 
 
 /**
@@ -85,6 +91,9 @@ public class ChatFragment extends Fragment {
         }
     }
 
+    public static ArrayList<Message> messageList;
+    public static MessagesAdapter adapter = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,11 +121,11 @@ public class ChatFragment extends Fragment {
             @Override
             public void run() {
                 DatabaseHandler db = new DatabaseHandler(getContext());
-                final ArrayList<Message> messageList = db.getAllMessages();
+                messageList = db.getAllMessages();
 
                 db.closeDB();
 
-                final MessagesAdapter adapter = new MessagesAdapter(getActivity().getBaseContext(), messageList);
+                adapter = new MessagesAdapter(getActivity().getBaseContext(), messageList);
 
                 // Attach the adapter to the recyclerview to populate items
                 rvMessages.setAdapter(adapter);
@@ -153,16 +162,71 @@ public class ChatFragment extends Fragment {
                             //if (mWifi.isConnected() || mData.isConnected()) {
                             if (mWifi.isConnected()) {
                                 if(!newMessage.trim().equals("")){
-                                    System.out.println("I am adding a message to the chat");
-                                    db.addMessage(new Message(currentDateTimeString, newMessage, 2));
-                                    messageList.add(new Message(currentDateTimeString, newMessage, 2));
+
+                                    Log.i("LOG", String.valueOf(adapter.getItemCount()));
+
+                                    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//                                    newMessage = sharedPref.getString("username", "");
+//                                    newMessage += "\n";
+//                                    newMessage += sharedPref.getString("password", "");
+
+                                    JSONObject post_dict = new JSONObject();
+
+                                    try {
+                                        post_dict.put("email" , sharedPref.getString("username", ""));
+                                        post_dict.put("password", sharedPref.getString("password", ""));
+                                        post_dict.put("action" , "sendmessage");
+                                        post_dict.put("message" , newMessage);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    //Log.i("LOG", String.valueOf(post_dict));
+
+                                    if (post_dict.length() > 0) {
+
+                                        new APICall().execute(String.valueOf(post_dict));
+
+                                        //Log.i("LOG", );
+                                    }
+
+
+                                    String latestMessage = "0000-00-00 00:00:00.000";
+                                    Message message = db.getLatestMessage();
+                                    Log.i("LOG", message.toString());
+
+                                    try {
+                                        post_dict.put("action" , "getnewmessages");
+                                        post_dict.put("timestamp" , message.getTimeSent());
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    //Log.i("LOG", String.valueOf(post_dict));
+
+                                    if (post_dict.length() > 0) {
+
+                                        new APICall().execute(String.valueOf(post_dict));
+
+                                        //Log.i("LOG", );
+                                    }
+
+                                    db.closeDB();
+                                    db = new DatabaseHandler(getContext());
+                                    //System.out.println("I am adding a message to the chat");
+                                    //db.addMessage(new Message(currentDateTimeString, newMessage, 2));
+                                    //messageList.add(new Message(currentDateTimeString, newMessage, 2));
+                                    messageList = db.getAllMessages();
+                                    Log.i("LOGSCREAM", "THE MESSAGE WAS " + String.valueOf(messageList.get(messageList.size()-1).getContent()));
 
                                     // This will update the adapter so that the new message will be displayed on the screen
                                     // This will update the view adapter
+                                    //adapter.
                                     adapter.notifyDataSetChanged();
 
                                     // This will clear the editText
                                     messageContent.setText("");
+
 
                                     rvMessages.scrollToPosition(adapter.getItemCount()-1);
 
