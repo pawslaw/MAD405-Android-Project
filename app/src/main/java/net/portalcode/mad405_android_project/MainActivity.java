@@ -20,6 +20,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,10 +89,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // This will be used to grab the nav header information
+        View hView =  navigationView.getHeaderView(0);
+        TextView navHeaderName = (TextView)hView.findViewById(R.id.navHeaderName);
+        ImageView navHeaderImage = (ImageView) hView.findViewById(R.id.navHeaderImageView);
+
+        // If the app is being loaded from a new instance and the user is properly logged in
         if(savedInstanceState == null && (sharedPref.getString("username", "").equals(""))){
             System.out.println(sharedPref.getString("username", ""));
             // As soon as the app opens, change the current view to the Main Fragment
             fm = getSupportFragmentManager();
+            navHeaderName.setText("Icicle");
+            //TODO: This will potentially be a thing once users are implemented fully
+//            navHeaderImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.add(R.id.content_main, new LoginFragment());
             fragmentTransaction.addToBackStack(null);
@@ -98,6 +109,9 @@ public class MainActivity extends AppCompatActivity
         } else {
             System.out.println(sharedPref.getString("username", ""));
             fm = getSupportFragmentManager();
+//TODO: This will potentially be a thing once users are implemented fully
+//            navHeaderImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
+            navHeaderName.setText(sharedPref.getString("username", ""));
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.add(R.id.content_main, new ChatFragment());
             fragmentTransaction.addToBackStack(null);
