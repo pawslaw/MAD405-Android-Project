@@ -155,25 +155,25 @@ public class APICall extends AsyncTask<String, String, String> {
 
 
 
-                    Log.i("LOGSCREAM", message.toString());
+//                    Log.i("LOGSCREAM", message.toString());
                 }
                 messageList = db.getAllMessages();
 
-                Log.i("TEST", "----- PRINTING MESSAGES -----");
-                for (int i = 0; i< messageList.size(); i++) {
-                    Log.i("TEST", messageList.get(i).getContent());
-                }
+//                Log.i("TEST", "----- PRINTING MESSAGES -----");
+//                for (int i = 0; i< messageList.size(); i++) {
+//                    Log.i("TEST", messageList.get(i).getContent());
+//                }
 
-                Log.i("TEST", "----- RESETTING MESSAGE LIST -----");
+//                Log.i("TEST", "----- RESETTING MESSAGE LIST -----");
 
                 messageList.clear();
                 messageList.addAll(db.getAllMessages());
                 adapter.notifyDataSetChanged();
 
-                Log.i("TEST", "----- PRINTING MESSAGES -----");
-                for (int i = 0; i< messageList.size(); i++) {
-                    Log.i("TEST", messageList.get(i).getContent());
-                }
+//                Log.i("TEST", "----- PRINTING MESSAGES -----");
+//                for (int i = 0; i< messageList.size(); i++) {
+//                    Log.i("TEST", messageList.get(i).getContent());
+//                }
 
                 adapter.notifyDataSetChanged();
 
