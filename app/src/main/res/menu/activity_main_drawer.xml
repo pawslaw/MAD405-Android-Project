@@ -7,25 +7,21 @@
             android:icon="@drawable/ic_forum_black_24dp"
             android:title="Chat" />
         <item
-            android:id="@+id/nav_item2"
-            android:icon="@drawable/ic_adb_black_24dp"
-            android:title="Second Option" />
-        <item
-            android:id="@+id/nav_item3"
-            android:icon="@drawable/ic_adb_black_24dp"
-            android:title="Third Option" />
-        <item
-            android:id="@+id/nav_item4"
-            android:icon="@drawable/ic_adb_black_24dp"
-            android:title="Fourth Option" />
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_event_note_black_24dp"
+            android:title="Schedule Meeting Reminder" />
     </group>
 
-    <item android:title="Submenu">
+    <item android:title="Having Trouble?">
         <menu>
             <item
-                android:id="@+id/nav_subitem1"
-                android:icon="@drawable/ic_adb_black_24dp"
-                android:title="First Suboption" />
+                android:id="@+id/nav_email"
+                android:icon="@drawable/ic_email_black_24dp"
+                android:title="Report Bug" />
+            <item
+                android:id="@+id/nav_call"
+                android:icon="@drawable/ic_local_phone_black_24dp"
+                android:title="Contact IT" />
             <item
                 android:id="@+id/nav_subitem2"
                 android:icon="@drawable/ic_adb_black_24dp"
