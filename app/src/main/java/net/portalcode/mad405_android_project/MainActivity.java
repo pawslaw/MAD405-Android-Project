@@ -1,5 +1,7 @@
 package net.portalcode.mad405_android_project;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,25 +20,41 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static net.portalcode.mad405_android_project.ChatFragment.adapter;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
-        ChatFragment.OnFragmentInteractionListener{
+        ChatFragment.OnFragmentInteractionListener,
+        LoginFragment.OnFragmentInteractionListener{
 
-    FragmentManager fm;
+    public static FragmentManager fm;
     public static FloatingActionButton fab;
+
+    public static Context context;
+
+    public static SharedPreferences sharedPref;
+
     String title = "Work Meeting";
     String location = "Circuit Logistics";
     String[] address = {"icicle-support@circuitlogistics.ca"};
     String subject = "Bug Report: Something Unexpected Happened";
     String phoneNumber = "1234567890";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        context = getApplicationContext();
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,11 +80,10 @@ public class MainActivity extends AppCompatActivity
             // As soon as the app opens, change the current view to the Main Fragment
             fm = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.add(R.id.content_main, new MainFragment());
+            fragmentTransaction.add(R.id.content_main, new LoginFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
-
     }
 
     @Override
@@ -159,21 +176,6 @@ public class MainActivity extends AppCompatActivity
             db.addUser(new User("DJ Disco", R.drawable.ic_album_black_24dp, 1));
             db.addUser(new User("Mr. Helpful", R.drawable.ic_attach_file_black_24dp, 1));
             db.addUser(new User("Sword Drop", R.drawable.ic_colorize_black_24dp, 1));
-
-
-            // Add all the messages required for the chat client to the Messages table
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", 1));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Sed malesuada, enim sit amet facilisis mattis, est lorem vestibulum lectus, at laoreet odio odio at ligula. Vivamus id facilisis leo, ac vehicula orci.", 2));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Aenean nulla tellus, euismod a vestibulum eget, consequat et lectus. ", 3));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Aliquam at tempus enim. Praesent mattis sed nisi in dignissim. Maecenas sit amet malesuada sapien. Praesent eget erat ut nisi eleifend feugiat.", 4));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Cras auctor, erat rutrum auctor tincidunt, elit libero sollicitudin diam, eu pellentesque nulla massa at ante. Maecenas dolor neque, tempor ut cursus et, malesuada eu neque. Vestibulum ac hendrerit nunc. Integer eleifend ex in mi ultrices elementum. Ut facilisis id libero quis dignissim. Vestibulum venenatis euismod rhoncus.", 5));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Aenean eleifend, magna nec interdum luctus, ligula sem pulvinar nisi, ut consectetur turpis mi in tortor. Phasellus sagittis ullamcorper odio, ac iaculis quam gravida eget.", 6));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Sed eros orci, sollicitudin sit amet ex at, mollis ullamcorper mauris. Nunc nec consectetur dolor.", 1));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Suspendisse sapien mauris, pulvinar sed augue elementum, tincidunt lacinia mi.", 2));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "In vel porta augue. Praesent lacinia ex ac cursus posuere. Cras ornare volutpat velit, id aliquam augue dictum vitae.", 3));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Integer varius est id lectus fermentum, et tempor arcu pretium. Cras posuere maximus ipsum.", 4));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Proin posuere arcu a iaculis dictum. Sed suscipit aliquam lorem eget mollis.", 5));
-            db.addMessage(new Message("Mar 10, 2017 1:03pm", "Donec sollicitudin elit a sem cursus lacinia. Nunc quis ligula eget sapien sagittis porttitor id vitae felis. Sed commodo arcu sit amet magna laoreet, quis eleifend nibh ultricies. ", 6));
 
             db.closeDB();
         }

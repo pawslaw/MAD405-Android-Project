@@ -341,6 +341,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     /**
+     * Get latest messages
+     */
+    public Message getLatestMessage() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        /**
+         * Create a cursor
+         * (Which is able to move through and access database records)
+         * Have it store all the records retrieved from the db.query()
+         * cursor starts by pointing at record 0
+         * Databases do not have a record 0
+         * we use cursor.moveToFirst() to have it at the first record returned
+         */
+        Cursor cursor = db.rawQuery("SELECT id, user_key, timesent, content FROM " + TABLE_MESSAGES + " ORDER BY " + KEY_TIME + " ASC LIMIT 1", new String[] {});
+        if(cursor != null) {
+            cursor.moveToFirst();
+
+
+
+        } else {
+            return null;
+        }
+
+
+        /**
+         * We create a user object using the cursor record
+         */
+        try {
+            Message message = new Message();
+            message.setId(Integer.parseInt(cursor.getString(0)));
+            message.setUser_id(Integer.parseInt(cursor.getString(1)));
+            message.setTimeSent(cursor.getString(2));
+            message.setContent(cursor.getString(3));
+            return message;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+
+    /**
      * Closing the database connection
      */
 
