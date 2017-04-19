@@ -101,6 +101,8 @@ public class MessagesAdapter extends
                 .placeholder(db.getUser(message.getUser_id()).getAvatar())
                 .into(avatar);
 //        avatar.setImageResource(db.getUser(message.getUser_id()).getAvatar());
+        // Using closeDB because it exists at this point in the program
+        db.closeDB();
     }
 
     // Returns the total count of items in the list

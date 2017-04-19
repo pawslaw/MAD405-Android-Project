@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:drawable="@color/hypothermia"/>
+
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:mipMap="true"
+            android:src="@drawable/icicle"/>
+    </item>
+
+</layer-list>

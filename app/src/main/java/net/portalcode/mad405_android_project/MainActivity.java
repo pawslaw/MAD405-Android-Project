@@ -2,8 +2,10 @@ package net.portalcode.mad405_android_project;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
@@ -31,9 +33,17 @@ public class MainActivity extends AppCompatActivity
 
     public static FragmentManager fm;
     public static FloatingActionButton fab;
+
     public static Context context;
 
     public static SharedPreferences sharedPref;
+
+    String title = "Work Meeting";
+    String location = "Circuit Logistics";
+    String[] address = {"icicle-support@circuitlogistics.ca"};
+    String subject = "Bug Report: Something Unexpected Happened";
+    String phoneNumber = "1234567890";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +76,14 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // As soon as the app opens, change the current view to the Main Fragment
-        fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-
-        // Temporarily redirecting to the login screen on bootup
-        //fragmentTransaction.add(R.id.content_main, new MainFragment());
-        fragmentTransaction.add(R.id.content_main, new LoginFragment());
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        if(savedInstanceState == null){
+            // As soon as the app opens, change the current view to the Main Fragment
+            fm = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.add(R.id.content_main, new LoginFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -120,44 +129,28 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_chat) {
             trans.replace(R.id.content_main, new ChatFragment());
             trans.commit();
-        } else if (id == R.id.nav_item2) {
-
-        } else if (id == R.id.nav_item3) {
-
-        } else if (id == R.id.nav_item4) {
-
-        } else if (id == R.id.nav_subitem1) {
-            JSONObject post_dict = new JSONObject();
-
-            String latestMessage = "0000-00-00 00:00:00.000";
-
-            DatabaseHandler db = new DatabaseHandler(getBaseContext());
-            Message message = db.getLatestMessage();
-            if (message == null) {
-                message = new Message();
-                message.setTimeSent(latestMessage);
+        } else if (id == R.id.nav_calendar) {
+            Intent intent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.Events.TITLE, title)
+                    .putExtra(CalendarContract.Events.EVENT_LOCATION, location);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
             }
-            db.closeDB();
-
-
-
-            try {
-                post_dict.put("action" , "getnewmessages");
-                post_dict.put("timestamp" , message.getTimeSent());
-            } catch (JSONException e) {
-                e.printStackTrace();
+        } else if (id == R.id.nav_email) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, address);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
             }
-
-            //Log.i("LOG", String.valueOf(post_dict));
-
-            if (post_dict.length() > 0) {
-
-                new APICall().execute(String.valueOf(post_dict));
-
-                //Log.i("LOG", );
+        } else if (id == R.id.nav_call) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phoneNumber));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
             }
-
-            adapter.notifyDataSetChanged();
         } else if (id == R.id.nav_subitem2) {
             // Add all entries to the database.
             DatabaseHandler db = new DatabaseHandler(getBaseContext());
