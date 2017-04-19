@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <EditTextPreference
-        android:defaultValue="Mr. Robot"
-        android:selectAllOnFocus="true"
-        android:title="Username"
-        android:key="userName"
-        android:summary="This is your username"
-        android:singleLine="true" />
+    <PreferenceCategory
+        android:title="Customize the App"
+        android:key="pref_user_customization">
+        <SwitchPreference
+            android:summaryOn="Choose between Night and Day themes"
+            android:summaryOff="Choose between Night and Day themes"
+            android:switchTextOff="Day"
+            android:switchTextOn="Night"
+            android:key="theme"/>
+    </PreferenceCategory>
 </PreferenceScreen>
