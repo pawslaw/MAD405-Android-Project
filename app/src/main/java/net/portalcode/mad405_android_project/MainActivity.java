@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity
 
 
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean useNightMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
+        boolean useDayMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
 
-        if(useNightMode) {
+        if(useDayMode) {
             setTheme(R.style.AppTheme_Light_NoActionBar);
         }
         super.onCreate(savedInstanceState);

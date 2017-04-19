@@ -22,6 +22,8 @@
     <color name="graphite">#48485c</color>
 
     <color name="highbeam">#effeff</color>
+    <color name="freshSidewalk">#EAE3DB</color>
+    <color name="lightGraphite">#535369</color>
 
     <array name="rainbow">
         <item>@color/bright_pink</item>

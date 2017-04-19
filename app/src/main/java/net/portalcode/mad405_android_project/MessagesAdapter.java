@@ -11,6 +11,7 @@ package net.portalcode.mad405_android_project;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class MessagesAdapter extends
         RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
 
     private static final String PREFS_NAME = "prefs";
+    private static final String PREF_NIGHT_MODE = "night_mode";
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Declare variables for the items to display in each row
@@ -37,6 +39,7 @@ public class MessagesAdapter extends
         public TextView time;
         public TextView message;
         public ImageView avatar;
+        public CardView card;
 
         // Constructor for the view
         public ViewHolder(View itemView) {
@@ -46,6 +49,7 @@ public class MessagesAdapter extends
             time = (TextView) itemView.findViewById(R.id.time);
             message = (TextView) itemView.findViewById(R.id.message);
             avatar = (ImageView) itemView.findViewById(R.id.avatar);
+            card = (CardView) itemView.findViewById(R.id.messageCardView);
         }
     }
 
@@ -81,18 +85,45 @@ public class MessagesAdapter extends
 
     @Override
     public void onBindViewHolder(MessagesAdapter.ViewHolder viewHolder, int position) {
+        // This code will switch the color scheme for the messages if the theme has been changed.
+
+        // This is the preferences file the user can make changes to
+        SharedPreferences preferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        // This is the preferences file the login information is stored in
+        SharedPreferences sharedPref = MainActivity.sharedPref;
+
         // Gets the item from the current position
         Message message = mMessages.get(position);
         DatabaseHandler db = new DatabaseHandler(getContext());
 
         // Set the Name for each message based on the userID of the current message
         TextView name = viewHolder.name;
+        TextView time = viewHolder.time;
+        TextView messageContent = viewHolder.message;
+
+        CardView card = viewHolder.card;
+
+
+        boolean useDayMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
+
+        if(useDayMode) {
+            card.setBackgroundColor(getContext().getResources().getColor(R.color.freshSidewalk));
+            name.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            time.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            messageContent.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+        } else {
+            card.setBackgroundColor(getContext().getResources().getColor(R.color.lightGraphite));
+            name.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            time.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            messageContent.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+        }
+
+
+
+
 
         //TODO: Convert this to validate the users identity and only change THEIR color
-        // This is the preferences file the user can make changes to
-        SharedPreferences preferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        // This is the preferences file the login information is stored in
-//        SharedPreferences sharedPref = MainActivity.sharedPref;
+
         int selected = preferences.getInt("color", 1);
 //        if(sharedPref.getString("username", "") == (db.getUser(message.getUser_id()).getName())){
 //            name.setTextColor(selected);
@@ -103,11 +134,9 @@ public class MessagesAdapter extends
         name.setText((db.getUser(message.getUser_id()).getName()));
 
         // Set the time sent of the message
-        TextView time = viewHolder.time;
         time.setText(message.getTimeSent());
 
         // Set the content of the message
-        TextView messageContent = viewHolder.message;
         messageContent.setText(message.getContent());
 
         // Sets the avatar using the resource id of the drawable image stored in the message
