@@ -76,6 +76,7 @@ public class CreditFragment extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.creditcontent);
         viewPager.setPageTransformer(true, new DepthPageTransformer());
         viewPager.setAdapter(creditsPagerAdapter);
+        
         return view;
     }
 
