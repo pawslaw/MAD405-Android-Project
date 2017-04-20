@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity
             // As soon as the app opens, change the current view to the Main Fragment
             fm = getSupportFragmentManager();
 //            navHeaderName.setText("Icicle");
-            //TODO: This will potentially be a thing once users are implemented fully
 //            navHeaderImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.add(R.id.content_main, new LoginFragment());
@@ -109,7 +108,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             System.out.println(sharedPref.getString("username", ""));
             fm = getSupportFragmentManager();
-//TODO: This will potentially be a thing once users are implemented fully
 //            navHeaderImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
 //            navHeaderName.setText(sharedPref.getString("username", ""));
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
