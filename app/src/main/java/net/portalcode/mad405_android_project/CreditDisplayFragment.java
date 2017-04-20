@@ -2,9 +2,13 @@ package net.portalcode.mad405_android_project;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +37,9 @@ public class CreditDisplayFragment extends Fragment {
     private static final String ARG_PARAM4 = "param4";
     private static final String ARG_PARAM5 = "param5";
     private static final String ARG_PARAM6 = "param6";
+
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_NIGHT_MODE = "night_mode";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -122,6 +129,62 @@ public class CreditDisplayFragment extends Fragment {
                     }
                 }
             });
+        }
+        CardView messageCardView = (CardView) view.findViewById(R.id.messageCardView);
+        TextView featureTitle = (TextView) view.findViewById(R.id.featureTitle);
+        TextView featureName = (TextView) view.findViewById(R.id.featureName);
+        TextView authorTitle = (TextView) view.findViewById(R.id.authorTitle);
+        TextView authorName = (TextView) view.findViewById(R.id.authorName);
+        TextView licenseTitle = (TextView) view.findViewById(R.id.licenseTitle);
+        TextView licenseName = (TextView) view.findViewById(R.id.licenseName);
+        TextView usageDescription = (TextView) view.findViewById(R.id.usageDescription);
+        TextView usageDescriptionTitle = (TextView) view.findViewById(R.id.usageDescriptionTitle);
+
+
+        // This is the preferences file the user can make changes to
+        SharedPreferences preferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        boolean useDayMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
+        final int version = Build.VERSION.SDK_INT;
+        if(useDayMode && version < 23) {
+            messageCardView.setBackgroundColor(getContext().getResources().getColor(R.color.freshSidewalk));
+            featureTitle.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            featureName.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            authorName.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            authorTitle.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            licenseName.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            licenseTitle.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            usageDescription.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            usageDescriptionTitle.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+        } else if(useDayMode && version >= 23) {
+            messageCardView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.freshSidewalk));
+            featureTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            featureName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            authorName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            authorTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            licenseName.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            licenseTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            usageDescription.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            usageDescriptionTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        } else if(!useDayMode && version < 23){
+            messageCardView.setBackgroundColor(getContext().getResources().getColor(R.color.lightGraphite));
+            featureTitle.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            featureName.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            authorName.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            authorTitle.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            licenseName.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            licenseTitle.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            usageDescription.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+            usageDescriptionTitle.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+        } else {
+            messageCardView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightGraphite));
+            featureTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            featureName.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            authorName.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            authorTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            licenseName.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            licenseTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            usageDescription.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+            usageDescriptionTitle.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
         }
 
         return view;
