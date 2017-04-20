@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.relex.circleindicator.CircleIndicator;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +32,7 @@ public class CreditFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     protected ViewPager viewPager;
+    protected CircleIndicator indicator;
     private CreditsPagerAdapter creditsPagerAdapter;
 
     private OnFragmentInteractionListener mListener;
@@ -74,9 +77,11 @@ public class CreditFragment extends Fragment {
         // This will set the PagerAdapter to the adapter built for the Member information
         creditsPagerAdapter = new CreditsPagerAdapter((getChildFragmentManager()));
         viewPager = (ViewPager) view.findViewById(R.id.creditcontent);
+        indicator = (CircleIndicator) view.findViewById(R.id.indicator);
         viewPager.setPageTransformer(true, new DepthPageTransformer());
         viewPager.setAdapter(creditsPagerAdapter);
-        
+        indicator.setViewPager(viewPager);
+
         return view;
     }
 
