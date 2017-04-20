@@ -167,6 +167,26 @@ public class ChatFragment extends Fragment {
                     NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                     NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
+                    if (mWifi.isConnected()) {
+                        JSONObject post_dict = new JSONObject();
+
+                        try {
+                            post_dict.put("action", "getallusers");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        //Log.i("LOG", String.valueOf(post_dict));
+
+                        if (post_dict.length() > 0) {
+
+                            new APICall().execute(String.valueOf(post_dict));
+
+                            //Log.i("LOG", );
+                        }
+                    }
+
+
                     // Confirm there are valid users in the local database
                     // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
                     //TODO This should probably be updated to confirm the user is a validated user before sending the message
