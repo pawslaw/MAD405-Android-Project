@@ -312,7 +312,7 @@ public class ChatFragment extends Fragment {
             rvMessages.scrollToPosition(adapter.getItemCount() -1);
 
             Timer timer = new Timer();
-            timer.schedule(new GetNewMessages(), 2500, 2500);
+            timer.schedule(new GetNewMessages(), 10000, 2500);
         }
     };
 
