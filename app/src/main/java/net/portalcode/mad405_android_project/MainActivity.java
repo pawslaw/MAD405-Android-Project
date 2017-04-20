@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
         ChatFragment.OnFragmentInteractionListener,
+        CreditFragment.OnFragmentInteractionListener,
+        CreditDisplayFragment.OnFragmentInteractionListener,
         LoginFragment.OnFragmentInteractionListener{
 
     private static final String PREFS_NAME = "prefs";
@@ -218,6 +220,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, MainActivity.class);
             finish();
             startActivity(intent);
+        } else if (id == R.id.nav_credits) {
+            trans.replace(R.id.content_main, new CreditFragment());
+            trans.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

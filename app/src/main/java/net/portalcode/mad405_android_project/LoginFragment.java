@@ -132,8 +132,10 @@ public class LoginFragment extends Fragment {
                 NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                 NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-//                if (!mWifi.isConnected() && !mData.isConnected()) {
-                if (!mWifi.isConnected()){
+
+//                if (!mData.isConnected() && !mWifi.isConnected()) {
+                if (!mWifi.isConnected()) {
+
                     Toast.makeText(getContext(), "Please connect to the internet.", Toast.LENGTH_LONG).show();
                     return;
                 }
