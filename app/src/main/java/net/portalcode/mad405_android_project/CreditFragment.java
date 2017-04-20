@@ -90,26 +90,26 @@ public class CreditFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             switch(position) {
-                //                                            Feature name,     Author Name,           License Name,           Feature Description
+                // Feature name, Author Name, License Name, Feature Description, Image Resource, Download Link
                 case 0:
-                    return CreditDisplayFragment.newInstance("Send Sound", "http://soundbible.com/", "Sampling Plus 1.0", "This is the sound effect used when sending a message. It is used to notify the user that their message has been sent.", R.drawable.sound);
+                    return CreditDisplayFragment.newInstance("Send Sound", "http://soundbible.com/", "Sampling Plus 1.0", "This is the sound effect used when sending a message. It is used to notify the user that their message has been sent.", R.drawable.sound, "http://soundbible.com/706-Swoosh-3.html");
                 case 1:
-                    return CreditDisplayFragment.newInstance("ColorPicker", "Tianyu (xdtianyu)", "Apache 2.0", "This is the color picker used in the settings to pick the user's color in the chat part of the app.", R.drawable.colorpicker);
+                    return CreditDisplayFragment.newInstance("ColorPicker", "Tianyu (xdtianyu)", "Apache 2.0", "This is the color picker used in the settings to pick the user's color in the chat part of the app.", R.drawable.colorpicker, "https://android-arsenal.com/details/1/3324");
                 case 2:
-                    return CreditDisplayFragment.newInstance("WCViewPagerIndicators", "Darwin Morocho", "MIT License", "This is the indicator at the bottom of this page to show how many pages are available to swipe through using the ViewPager. This was an aesthetic choice over including a set of left and right buttons.", R.drawable.circle);
+                    return CreditDisplayFragment.newInstance("WCViewPagerIndicators", "Darwin Morocho", "MIT License", "This is the indicator at the bottom of this page to show how many pages are available to swipe through using the ViewPager. This was an aesthetic choice over including a set of left and right buttons.", R.drawable.circle, "https://android-arsenal.com/details/1/5494");
                 case 3:
-                    return CreditDisplayFragment.newInstance("Icicle App", "Brandon Brown", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.", R.drawable.icicle);
+                    return CreditDisplayFragment.newInstance("Icicle App", "Brandon Brown", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.", R.drawable.icicle, "www.github.com");
                 case 4:
-                    return CreditDisplayFragment.newInstance("Icicle App", "James Pierce", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.", R.drawable.icicle);
+                    return CreditDisplayFragment.newInstance("Icicle App", "James Pierce", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.", R.drawable.icicle, "www.github.com");
                 case 5:
-                    return CreditDisplayFragment.newInstance("Sound Image", "geralt", "CC0 Public Domain", "Used for App Credits", R.drawable.sound);
+                    return CreditDisplayFragment.newInstance("Sound Image", "geralt", "CC0 Public Domain", "Used for App Credits", R.drawable.sound, "https://pixabay.com/en/according-to-sound-speakers-volume-214445/");
                 case 6:
-                    return CreditDisplayFragment.newInstance("Color Picker Image", "geralt", "CC0 Public Domain", "Used for App Credits", R.drawable.colorpicker);
+                    return CreditDisplayFragment.newInstance("Color Picker Image", "geralt", "CC0 Public Domain", "Used for App Credits", R.drawable.colorpicker, "https://pixabay.com/en/color-district-colorful-pattern-455365/");
                 case 7:
-                    return CreditDisplayFragment.newInstance("Circle Indicator Image", "OpenClipart-Vectors", "CC0 Public Domain", "Used for App Credits", R.drawable.circle);
+                    return CreditDisplayFragment.newInstance("Circle Indicator Image", "OpenClipart-Vectors", "CC0 Public Domain", "Used for App Credits", R.drawable.circle, "https://pixabay.com/en/colors-chromatic-circle-red-green-157474/");
 
                 default:
-                    return CreditDisplayFragment.newInstance(null, null, null, null, 0);
+                    return CreditDisplayFragment.newInstance(null, null, null, null, 0, null);
             }
         }
 

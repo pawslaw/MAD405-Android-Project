@@ -1,6 +1,7 @@
 package net.portalcode.mad405_android_project;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ public class CreditDisplayFragment extends Fragment {
     private static final String ARG_PARAM3 = "param3";
     private static final String ARG_PARAM4 = "param4";
     private static final String ARG_PARAM5 = "param5";
+    private static final String ARG_PARAM6 = "param6";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -38,6 +40,7 @@ public class CreditDisplayFragment extends Fragment {
     private String mParam3;
     private String mParam4;
     private int mParam5;
+    private String mParam6;
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,7 +57,7 @@ public class CreditDisplayFragment extends Fragment {
      * @return A new instance of fragment CreditDisplayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CreditDisplayFragment newInstance(String param1, String param2, String param3, String param4, int param5) {
+    public static CreditDisplayFragment newInstance(String param1, String param2, String param3, String param4, int param5, String param6) {
         CreditDisplayFragment fragment = new CreditDisplayFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -62,6 +65,7 @@ public class CreditDisplayFragment extends Fragment {
         args.putString(ARG_PARAM3, param3);
         args.putString(ARG_PARAM4, param4);
         args.putInt(ARG_PARAM5, param5);
+        args.putString(ARG_PARAM6, param6);
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,6 +79,7 @@ public class CreditDisplayFragment extends Fragment {
             mParam3 = getArguments().getString(ARG_PARAM3);
             mParam4 = getArguments().getString(ARG_PARAM4);
             mParam5 = getArguments().getInt(ARG_PARAM5);
+            mParam6 = getArguments().getString(ARG_PARAM6);
         }
     }
 
@@ -104,6 +109,15 @@ public class CreditDisplayFragment extends Fragment {
         if(mParam5 != 0) {
             ImageView image = (ImageView) view.findViewById(R.id.creditImage);
             Picasso.with(getContext()).load(mParam5).placeholder(mParam5).centerCrop().resize(250, 250).into(image);
+        }
+        if(mParam6 != null) {
+            ImageView image = (ImageView) view.findViewById(R.id.creditImage);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent();
+                }
+            });
         }
 
         return view;
