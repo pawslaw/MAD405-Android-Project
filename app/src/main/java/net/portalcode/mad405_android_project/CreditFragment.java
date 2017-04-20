@@ -90,11 +90,18 @@ public class CreditFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             switch(position) {
+                //                                            Feature name,     Author Name,           License Name,           Feature Description
                 case 0:
-                    //                           Feature name, Author Name, License Name, Feature Description
                     return CreditDisplayFragment.newInstance("Send Sound", "http://soundbible.com/", "Sampling Plus 1.0", "This is the sound effect used when sending a message. It is used to notify the user that their message has been sent.");
-//                case 1:
-//                    return CreditDisplayFragment.newInstance("WCViewPagerIndicators", "Darwin Morocho (MorochoRochaDarwin)", "MIT License", "This is the indicator at the bottom of this page to show how many pages are available to swipe through using the ViewPager. This was an aesthetic choice over including a set of left and right buttons.");
+                case 1:
+                    return CreditDisplayFragment.newInstance("ColorPicker", "Tianyu (xdtianyu)", "Apache 2.0", "This is the color picker used in the settings to pick the user's color in the chat part of the app.");
+                case 2:
+                    return CreditDisplayFragment.newInstance("WCViewPagerIndicators", "Darwin Morocho (MorochoRochaDarwin)", "MIT License", "This is the indicator at the bottom of this page to show how many pages are available to swipe through using the ViewPager. This was an aesthetic choice over including a set of left and right buttons.");
+                case 3:
+                    return CreditDisplayFragment.newInstance("Icicle App", "Brandon Brown", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.");
+                case 4:
+                    return CreditDisplayFragment.newInstance("Icicle App", "James Pierce", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.");
+
                 default:
                     return CreditDisplayFragment.newInstance(null, null, null, null);
             }
@@ -102,7 +109,7 @@ public class CreditFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 1;
+            return 5;
         }
     }
 
