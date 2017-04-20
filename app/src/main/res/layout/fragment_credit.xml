@@ -1,0 +1,22 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    tools:context="net.portalcode.mad405_android_project.CreditFragment">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/creditcontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </android.support.v4.view.ViewPager>
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:ci_orientation="horizontal"
+        app:ci_height="8dp"
+        android:layout_gravity="bottom|center_horizontal"
+        app:ci_width="8dp"/>
+
+</FrameLayout>

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         MainFragment.OnFragmentInteractionListener,
         ChatFragment.OnFragmentInteractionListener,
+        CreditFragment.OnFragmentInteractionListener,
+        CreditDisplayFragment.OnFragmentInteractionListener,
         LoginFragment.OnFragmentInteractionListener{
 
     public static FragmentManager fm;
@@ -175,6 +177,9 @@ public class MainActivity extends AppCompatActivity
             db.addUser(new User("Sword Drop", R.drawable.ic_colorize_black_24dp, 1));
 
             db.closeDB();
+        } else if (id == R.id.nav_credits) {
+            trans.replace(R.id.content_main, new CreditFragment());
+            trans.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
