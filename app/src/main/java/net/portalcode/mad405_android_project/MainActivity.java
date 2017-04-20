@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity
 //            navHeaderName.setText("Icicle");
 //            navHeaderImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.add(R.id.content_main, new LoginFragment());
+            fragmentTransaction.replace(R.id.content_main, new LoginFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         } else {
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity
 //            navHeaderImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
 //            navHeaderName.setText(sharedPref.getString("username", ""));
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.add(R.id.content_main, new ChatFragment());
+            fragmentTransaction.replace(R.id.content_main, new ChatFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
