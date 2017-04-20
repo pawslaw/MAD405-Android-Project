@@ -7,8 +7,8 @@
         <SwitchPreference
             android:summaryOn="Choose between Night and Day themes(restarts the app)"
             android:summaryOff="Choose between Night and Day themes(restarts the app)"
-            android:switchTextOff="Day"
-            android:switchTextOn="Night"
+            android:switchTextOff="Night"
+            android:switchTextOn="Day"
             android:key="theme"/>
         <org.xdty.preference.ColorPreference
             android:key="color"
