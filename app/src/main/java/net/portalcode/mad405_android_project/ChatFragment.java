@@ -27,6 +27,8 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 
@@ -105,6 +107,8 @@ public class ChatFragment extends Fragment {
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.hide();
 
+        connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
         // License: Sampling Plus 1.0
         // License Link : https://creativecommons.org/licenses/sampling+/1.0/
         // Download link : http://soundbible.com/tags-swoosh.html
@@ -119,12 +123,15 @@ public class ChatFragment extends Fragment {
         sendButton = (Button) view.findViewById(R.id.sendButton);
         rvMessages = (RecyclerView) view.findViewById(R.id.chatList);
 
-
+        Timer timer = new Timer();
+        timer.schedule(new GetNewMessages(), 0, 5000);
 
         run.run();
 
         return view;
     }
+
+    public static ConnectivityManager connectivityManager;
 
     public Runnable run = new Runnable() {
         @Override
@@ -325,5 +332,41 @@ public class ChatFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+}
+
+class GetNewMessages extends TimerTask {
+    public void run() {
+        NetworkInfo mWifi = ChatFragment.connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (mWifi.isConnected()) {
+            JSONObject post_dict = new JSONObject();
+            DatabaseHandler db = new DatabaseHandler(MainActivity.context);
+            Message message = db.getLatestMessage();
+
+            if (message == null) {
+                message = new Message();
+                String latestMessage = "0000-00-00 00:00:00.000";
+
+                message.setTimeSent(latestMessage);
+            }
+
+            try {
+
+
+                post_dict.put("action", "getnewmessages");
+                post_dict.put("timestamp", message.getTimeSent());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //Log.i("LOG", String.valueOf(post_dict));
+
+            if (post_dict.length() > 0) {
+
+                new APICall().execute(String.valueOf(post_dict));
+
+                //Log.i("LOG", );
+            }
+        }
     }
 }
