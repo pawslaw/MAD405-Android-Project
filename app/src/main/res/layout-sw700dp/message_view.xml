@@ -43,7 +43,7 @@
                     android:padding="2dp"
                     android:text="TextView"
                     android:textAllCaps="false"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:textStyle="normal|bold" />
                 <!-- This will display the date / time the user sent the message -->
                 <TextView
@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:padding="2dp"
                     android:text="TextView"
-                    android:textSize="11sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
             <!-- This is the message content -->
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="TextView"
-                android:textSize="14sp" />
+                android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

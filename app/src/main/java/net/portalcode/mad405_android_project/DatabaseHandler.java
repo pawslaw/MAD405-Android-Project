@@ -330,6 +330,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteAllUsers() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.rawQuery("DELETE FROM users", new String[] {});
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
+    }
+
     // Delete a Permission
     public void deletePermissions(long permissions_id) {
         SQLiteDatabase db = getWritableDatabase();
@@ -353,7 +360,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
          * Databases do not have a record 0
          * we use cursor.moveToFirst() to have it at the first record returned
          */
-        Cursor cursor = db.rawQuery("SELECT id, user_key, timesent, content FROM " + TABLE_MESSAGES + " ORDER BY " + KEY_TIME + " ASC LIMIT 1", new String[] {});
+        Cursor cursor = db.rawQuery("SELECT id, user_key, timesent, content FROM " + TABLE_MESSAGES + " ORDER BY " + KEY_TIME + " DESC LIMIT 1", new String[] {});
         if(cursor != null) {
             cursor.moveToFirst();
 
