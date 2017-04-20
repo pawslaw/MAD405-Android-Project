@@ -115,7 +115,11 @@ public class CreditDisplayFragment extends Fragment {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent();
+                    Uri webpage = Uri.parse(mParam6);
+                    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
                 }
             });
         }

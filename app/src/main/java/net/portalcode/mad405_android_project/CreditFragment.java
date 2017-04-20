@@ -98,9 +98,9 @@ public class CreditFragment extends Fragment {
                 case 2:
                     return CreditDisplayFragment.newInstance("WCViewPagerIndicators", "Darwin Morocho", "MIT License", "This is the indicator at the bottom of this page to show how many pages are available to swipe through using the ViewPager. This was an aesthetic choice over including a set of left and right buttons.", R.drawable.circle, "https://android-arsenal.com/details/1/5494");
                 case 3:
-                    return CreditDisplayFragment.newInstance("Icicle App", "Brandon Brown", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.", R.drawable.icicle, "www.github.com");
+                    return CreditDisplayFragment.newInstance("Icicle App", "Brandon Brown", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.", R.drawable.icicle, "https://www.github.com");
                 case 4:
-                    return CreditDisplayFragment.newInstance("Icicle App", "James Pierce", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.", R.drawable.icicle, "www.github.com");
+                    return CreditDisplayFragment.newInstance("Icicle App", "James Pierce", "N/A", "Co-Author of the Icicle app. Worked on front and back-end portions of the app. Worked on features required by Circuit Logistics to be implemented in the app.", R.drawable.icicle, "https://www.github.com");
                 case 5:
                     return CreditDisplayFragment.newInstance("Sound Image", "geralt", "CC0 Public Domain", "Used for App Credits", R.drawable.sound, "https://pixabay.com/en/according-to-sound-speakers-volume-214445/");
                 case 6:
