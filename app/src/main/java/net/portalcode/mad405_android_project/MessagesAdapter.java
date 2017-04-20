@@ -140,7 +140,7 @@ public class MessagesAdapter extends
         int selected = preferences.getInt("color", -1672077);
         Log.i("LOG", "sharedpref" + sharedPref.getString("username", ""));
         Log.i("LOG", "db" + db.getUser(message.getUser_id()).getName());
-        if(sharedPref.getString("username", "") == (db.getUser(message.getUser_id()).getName())){
+        if(sharedPref.getString("username", "").equals(db.getUser(message.getUser_id()).getName())){
             name.setTextColor(selected);
         }
 
