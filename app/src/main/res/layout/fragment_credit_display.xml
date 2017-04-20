@@ -15,6 +15,15 @@
         android:layout_height="match_parent"
         android:columnCount="2">
 
+        <ImageView
+            android:id="@+id/creditImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnSpan="2"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="16dp"
+            cardView:srcCompat="@drawable/ic_adb_black_24dp" />
+
         <TextView
             android:id="@+id/featureTitle"
             android:layout_width="wrap_content"
@@ -22,7 +31,8 @@
             android:layout_gravity="left"
             android:layout_marginLeft="16dp"
             android:padding="8dp"
-            android:text="Feature : " />
+            android:text="Feature : "
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/featureName"
@@ -30,7 +40,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="8dp"
-            android:text="Feature Name" />
+            android:text="Feature Name"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/authorTitle"
@@ -39,7 +50,8 @@
             android:layout_gravity="left"
             android:layout_marginLeft="16dp"
             android:padding="8dp"
-            android:text="Author : " />
+            android:text="Author : "
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/authorName"
@@ -47,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="8dp"
-            android:text="Author Name" />
+            android:text="Author Name"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/licenseTitle"
@@ -56,7 +69,8 @@
             android:layout_gravity="left"
             android:layout_marginLeft="16dp"
             android:padding="8dp"
-            android:text="License : " />
+            android:text="License : "
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/licenseName"
@@ -64,7 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:padding="8dp"
-            android:text="License Name" />
+            android:text="License Name"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/usageDescriptionTitle"
@@ -74,7 +89,8 @@
             android:layout_gravity="left"
             android:layout_marginLeft="16dp"
             android:padding="8dp"
-            android:text="Description : " />
+            android:text="Description : "
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/usageDescription"
@@ -82,8 +98,11 @@
             android:layout_height="wrap_content"
             android:layout_columnSpan="2"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
             android:padding="8dp"
-            android:text="Feature Description" />
+            android:text="Feature Description"
+            android:textSize="18sp" />
     </GridLayout>
 
 
