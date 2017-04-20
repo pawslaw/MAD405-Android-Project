@@ -136,7 +136,8 @@ public class APICall extends AsyncTask<String, String, String> {
                 fragmentTransaction.replace(R.id.content_main, new ChatFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-            } else if (json.optJSONArray("newmessages").length() != 0) {
+
+            } else if (json.optJSONArray("newmessages") != null && json.optJSONArray("newmessages").length() != 0) {
 
                 //Log.i("LOG", "Test: " + json.optJSONArray("newmessages").toString());
                 DatabaseHandler db = new DatabaseHandler(MainActivity.context);
@@ -147,13 +148,22 @@ public class APICall extends AsyncTask<String, String, String> {
                     message.setId(json.optJSONArray("newmessages").getJSONObject(i).getInt("id"));
                     message.setTimeSent(json.optJSONArray("newmessages").getJSONObject(i).getString("timestamp"));
                     message.setUser_id(json.optJSONArray("newmessages").getJSONObject(i).getInt("user"));
+
+//                    User user = db.getUser(message.getUser_id());
+//                    if (user == null) {
+//                        JSONObject post_dict = new JSONObject();
+//
+//                        try {
+//                            post_dict.put("action" , "getuser");
+//                            post_dict.put("userid" , message.getUser_id());
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        new APICall().execute(String.valueOf(post_dict));
+//                    }
+
                     //Log.i("LOG", json.optJSONArray("newmessages").getString(i));
-
-
                     db.addMessage(message);
-
-
-
 
 //                    Log.i("LOGSCREAM", message.toString());
                 }
@@ -181,7 +191,33 @@ public class APICall extends AsyncTask<String, String, String> {
                 ChatFragment.rvMessages.setAdapter(adapter);
                 ChatFragment.rvMessages.scrollToPosition(adapter.getItemCount()-1);
                 db.closeDB();
+            } else if (json.optJSONArray("users") != null && json.optJSONArray("users").length() != 0) {
+                DatabaseHandler db = new DatabaseHandler(MainActivity.context);
+                db.deleteAllUsers();
+                for (int i = 0; i < json.optJSONArray("users").length(); i++) {
+                    User user = new User();
+
+                    user.setId(json.optJSONArray("users").getJSONObject(i).getInt("id"));
+                    user.setName(json.optJSONArray("users").getJSONObject(i).getString("username"));
+                    user.setAvatar(R.drawable.ic_adb_black_24dp);
+                    //Log.i("LOG", json.optJSONArray("newmessages").getString(i));
+
+                    db.addUser(user);
+//                    Log.i("LOGSCREAM", message.toString());
+                }
+                db.closeDB();
             }
+//            } else if (json.optJSONArray("user") != null && json.optJSONArray("user").length() != 0) {
+//                User user = new User();
+//                user.setId(json.optJSONArray("user").getJSONObject(0).getInt("id"));
+//                user.setName(json.optJSONArray("user").getJSONObject(0).getString("username"));
+//
+//                Log.i("LOG", user.toString());
+//
+//                DatabaseHandler db = new DatabaseHandler(MainActivity.context);
+//                db.addUser(user);
+//                db.closeDB();
+//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

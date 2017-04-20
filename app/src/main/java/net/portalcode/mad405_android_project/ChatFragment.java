@@ -153,9 +153,9 @@ public class ChatFragment extends Fragment {
 
                     // This will add the message to the messageList if there are users in the database
                     DatabaseHandler db = new DatabaseHandler(getContext());
-                    ArrayList<User> test= new ArrayList<User>();
+                    //ArrayList<User> test= new ArrayList<User>();
                     System.out.println(db.getAllUsers());
-                    System.out.println(test);
+                    //System.out.println(test);
 
                     // This will test to see if the user is connected to wifi.
                     ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -165,12 +165,29 @@ public class ChatFragment extends Fragment {
                     // Confirm there are valid users in the local database
                     // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
                     //TODO This should probably be updated to confirm the user is a validated user before sending the message
-                    if(!db.getAllUsers().equals(test)){
+                    //if(!db.getAllUsers().equals(test)){
                         // The following is commented out as the school tablets do not support Data, only WiFi.
                         // Should look into a proper fix for this, as this does not allow users with data access to send messages.
                         //if (mWifi.isConnected() || mData.isConnected()) {
                         if (mWifi.isConnected()) {
                             if(!newMessage.trim().equals("")){
+
+                                JSONObject post_dict = new JSONObject();
+
+                                try {
+                                    post_dict.put("action" , "getallusers");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                //Log.i("LOG", String.valueOf(post_dict));
+
+                                if (post_dict.length() > 0) {
+
+                                    new APICall().execute(String.valueOf(post_dict));
+
+                                    //Log.i("LOG", );
+                                }
 
                                 Log.i("LOG", String.valueOf(adapter.getItemCount()));
 
@@ -179,7 +196,7 @@ public class ChatFragment extends Fragment {
 //                                    newMessage += "\n";
 //                                    newMessage += sharedPref.getString("password", "");
 
-                                JSONObject post_dict = new JSONObject();
+                                post_dict = new JSONObject();
 
                                 try {
                                     post_dict.put("email" , sharedPref.getString("username", ""));
@@ -259,10 +276,10 @@ public class ChatFragment extends Fragment {
                             Toast.makeText(getContext(), "You are not connected to a network.", Toast.LENGTH_LONG).show();
                             vibe.vibrate(300);
                         }
-                    } else {
-                        Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
-                        vibe.vibrate(300);
-                    }
+//                    } else {
+//                        Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
+//                        vibe.vibrate(300);
+//                    }
                     db.closeDB();
                 }
             });
