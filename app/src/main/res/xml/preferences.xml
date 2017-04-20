@@ -15,7 +15,7 @@
             android:title="Username Color"
             android:summary="Use this to change the color of your username within the chat"
             tools:dialogTitle="@string/default_color"
-            tools:colors="@array/default_rainbow"
+            tools:colors="@array/rainbow"
             tools:columns="5"
             tools:material="true"
             tools:backwardsOrder="true"

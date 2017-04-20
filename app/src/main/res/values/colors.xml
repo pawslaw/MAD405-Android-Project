@@ -37,5 +37,6 @@
         <item>@color/violet</item>
         <item>@color/magenta</item>
         <item>@color/frostbite</item>
+        <item>@color/hypothermia</item>
     </array>
 </resources>
