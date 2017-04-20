@@ -27,6 +27,8 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Logger;
 
 
@@ -49,7 +51,7 @@ public class ChatFragment extends Fragment {
     private String mParam2;
 
     // Declare variables for views being displayed
-    RecyclerView rvMessages;
+    static RecyclerView rvMessages;
     Button sendButton;
 
 
@@ -94,6 +96,9 @@ public class ChatFragment extends Fragment {
     public static ArrayList<Message> messageList;
     public static MessagesAdapter adapter = null;
 
+    public static MediaPlayer mp = null;
+    public static Vibrator vibe = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,11 +107,13 @@ public class ChatFragment extends Fragment {
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
         fab.hide();
 
+        connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
         // License: Sampling Plus 1.0
         // License Link : https://creativecommons.org/licenses/sampling+/1.0/
         // Download link : http://soundbible.com/tags-swoosh.html
-        final MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.sendbeep);
-        final Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        mp = MediaPlayer.create(this.getContext(), R.raw.sendbeep);
+        vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
 
 
@@ -114,159 +121,180 @@ public class ChatFragment extends Fragment {
         sendButton = (Button) view.findViewById(R.id.sendButton);
         rvMessages = (RecyclerView) view.findViewById(R.id.chatList);
 
-
-        Runnable run = new Runnable() {
-            @Override
-            public void run() {
-                // Attempt to move content up when opening the EditText
-                // This does not work all the time. No idea why.
-                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-                DatabaseHandler db = new DatabaseHandler(getContext());
-                messageList = db.getAllMessages();
-
-                db.closeDB();
-
-                adapter = new MessagesAdapter(getActivity().getBaseContext(), messageList);
-
-                // Attach the adapter to the recyclerview to populate items
-                rvMessages.setAdapter(adapter);
-
-                // Set layout manager to position the items
-                rvMessages.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-
-                // This will be used to send a message once the user is ready to send it.
-                sendButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        newMessage =  messageContent.getText().toString();
-
-                        // This will get the current time.
-                        currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-
-                        // This will add the message to the messageList if there are users in the database
-                        DatabaseHandler db = new DatabaseHandler(getContext());
-                        ArrayList<User> test= new ArrayList<User>();
-                        System.out.println(db.getAllUsers());
-                        System.out.println(test);
-
-                        // This will test to see if the user is connected to wifi.
-                        ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-                        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                        NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-                        // Confirm there are valid users in the local database
-                        // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
-                        //TODO This should probably be updated to confirm the user is a validated user before sending the message
-                        if(!db.getAllUsers().equals(test)){
-                            // The following is commented out as the school tablets do not support Data, only WiFi.
-                            // Should look into a proper fix for this, as this does not allow users with data access to send messages.
-                            //if (mWifi.isConnected() || mData.isConnected()) {
-                            if (mWifi.isConnected()) {
-                                if(!newMessage.trim().equals("")){
-
-                                    Log.i("LOG", String.valueOf(adapter.getItemCount()));
-
-                                    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-//                                    newMessage = sharedPref.getString("username", "");
-//                                    newMessage += "\n";
-//                                    newMessage += sharedPref.getString("password", "");
-
-                                    JSONObject post_dict = new JSONObject();
-
-                                    try {
-                                        post_dict.put("email" , sharedPref.getString("username", ""));
-                                        post_dict.put("password", sharedPref.getString("password", ""));
-                                        post_dict.put("action" , "sendmessage");
-                                        post_dict.put("message" , newMessage);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    //Log.i("LOG", String.valueOf(post_dict));
-
-                                    if (post_dict.length() > 0) {
-
-                                        new APICall().execute(String.valueOf(post_dict));
-
-                                        //Log.i("LOG", );
-                                    }
-
-
-                                    String latestMessage = "0000-00-00 00:00:00.000";
-                                    Message message = db.getLatestMessage();
-
-                                    if (message == null) {
-                                        message = new Message();
-                                        message.setTimeSent(latestMessage);
-                                    }
-
-                                    Log.i("LOG", message.toString());
-
-                                    try {
-                                        post_dict.put("action" , "getnewmessages");
-                                        post_dict.put("timestamp" , message.getTimeSent());
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    //Log.i("LOG", String.valueOf(post_dict));
-
-                                    if (post_dict.length() > 0) {
-
-                                        new APICall().execute(String.valueOf(post_dict));
-
-                                        //Log.i("LOG", );
-                                    }
-
-                                    db.closeDB();
-                                    db = new DatabaseHandler(getContext());
-                                    //System.out.println("I am adding a message to the chat");
-                                    //db.addMessage(new Message(currentDateTimeString, newMessage, 2));
-                                    //messageList.add(new Message(currentDateTimeString, newMessage, 2));
-                                    messageList = db.getAllMessages();
-                                    //Log.i("LOGSCREAM", "THE MESSAGE WAS " + String.valueOf(messageList.get(messageList.size()-1).getContent()));
-
-                                    // This will update the adapter so that the new message will be displayed on the screen
-                                    // This will update the view adapter
-                                    //adapter.
-                                    adapter.notifyDataSetChanged();
-
-                                    // This will clear the editText
-                                    messageContent.setText("");
-
-
-                                    rvMessages.scrollToPosition(adapter.getItemCount()-1);
-
-
-                                    // Make the app vibrate
-                                    vibe.vibrate(100);
-                                    // Play a sent sound
-                                    mp.start();
-                                } else {
-                                    Toast.makeText(getContext(), "Please do not send empty messages.", Toast.LENGTH_LONG).show();
-                                    vibe.vibrate(300);
-                                }
-
-                            } else {
-                                Toast.makeText(getContext(), "You are not connected to a network.", Toast.LENGTH_LONG).show();
-                                vibe.vibrate(300);
-                            }
-                        } else {
-                            Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
-                            vibe.vibrate(300);
-                        }
-                        db.closeDB();
-                    }
-                });
-
-                rvMessages.scrollToPosition(adapter.getItemCount() -1);
-
-            }
-        };
         run.run();
 
         return view;
     }
+
+    public static ConnectivityManager connectivityManager;
+
+    public Runnable run = new Runnable() {
+        @Override
+        public void run() {
+            // Attempt to move content up when opening the EditText
+            // This does not work all the time. No idea why.
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            DatabaseHandler db = new DatabaseHandler(getContext());
+            messageList = db.getAllMessages();
+
+            db.closeDB();
+
+            adapter = new MessagesAdapter(getActivity().getBaseContext(), messageList);
+
+            // Attach the adapter to the recyclerview to populate items
+            rvMessages.setAdapter(adapter);
+
+            // Set layout manager to position the items
+            rvMessages.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+
+            // This will be used to send a message once the user is ready to send it.
+            sendButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    newMessage =  messageContent.getText().toString();
+
+                    // This will get the current time.
+                    currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+
+                    // This will add the message to the messageList if there are users in the database
+                    DatabaseHandler db = new DatabaseHandler(getContext());
+                    //ArrayList<User> test= new ArrayList<User>();
+                    System.out.println(db.getAllUsers());
+                    //System.out.println(test);
+
+                    // This will test to see if the user is connected to wifi.
+                    ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                    NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+                    // Confirm there are valid users in the local database
+                    // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
+                    //TODO This should probably be updated to confirm the user is a validated user before sending the message
+                    //if(!db.getAllUsers().equals(test)){
+                        // The following is commented out as the school tablets do not support Data, only WiFi.
+                        // Should look into a proper fix for this, as this does not allow users with data access to send messages.
+                        //if (mWifi.isConnected() || mData.isConnected()) {
+                        if (mWifi.isConnected()) {
+                            if(!newMessage.trim().equals("")){
+
+                                JSONObject post_dict = new JSONObject();
+
+                                try {
+                                    post_dict.put("action" , "getallusers");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                //Log.i("LOG", String.valueOf(post_dict));
+
+                                if (post_dict.length() > 0) {
+
+                                    new APICall().execute(String.valueOf(post_dict));
+
+                                    //Log.i("LOG", );
+                                }
+
+                                Log.i("LOG", String.valueOf(adapter.getItemCount()));
+
+                                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+//                                    newMessage = sharedPref.getString("username", "");
+//                                    newMessage += "\n";
+//                                    newMessage += sharedPref.getString("password", "");
+
+                                post_dict = new JSONObject();
+
+                                try {
+                                    post_dict.put("email" , sharedPref.getString("username", ""));
+                                    post_dict.put("password", sharedPref.getString("password", ""));
+                                    post_dict.put("action" , "sendmessage");
+                                    post_dict.put("message" , newMessage);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                //Log.i("LOG", String.valueOf(post_dict));
+
+                                if (post_dict.length() > 0) {
+
+                                    new APICall().execute(String.valueOf(post_dict));
+
+                                    //Log.i("LOG", );
+                                }
+
+
+                                String latestMessage = "0000-00-00 00:00:00.000";
+                                Message message = db.getLatestMessage();
+
+                                if (message == null) {
+                                    message = new Message();
+                                    message.setTimeSent(latestMessage);
+                                }
+
+                                Log.i("LOG", message.toString());
+
+                                try {
+                                    post_dict.put("action" , "getnewmessages");
+                                    post_dict.put("timestamp" , message.getTimeSent());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                //Log.i("LOG", String.valueOf(post_dict));
+
+                                if (post_dict.length() > 0) {
+
+                                    new APICall().execute(String.valueOf(post_dict));
+
+                                    //Log.i("LOG", );
+                                }
+
+                                db.closeDB();
+                                db = new DatabaseHandler(getContext());
+                                //System.out.println("I am adding a message to the chat");
+                                //db.addMessage(new Message(currentDateTimeString, newMessage, 2));
+                                //messageList.add(new Message(currentDateTimeString, newMessage, 2));
+                                messageList = db.getAllMessages();
+                                //Log.i("LOGSCREAM", "THE MESSAGE WAS " + String.valueOf(messageList.get(messageList.size()-1).getContent()));
+
+                                // This will update the adapter so that the new message will be displayed on the screen
+                                // This will update the view adapter
+                                //adapter.
+                                adapter.notifyDataSetChanged();
+
+                                // This will clear the editText
+                                messageContent.setText("");
+
+
+                                rvMessages.scrollToPosition(adapter.getItemCount()-1);
+
+
+                                // Make the app vibrate
+                                vibe.vibrate(100);
+                                // Play a sent sound
+                                mp.start();
+                            } else {
+                                Toast.makeText(getContext(), "Please do not send empty messages.", Toast.LENGTH_LONG).show();
+                                vibe.vibrate(300);
+                            }
+
+                        } else {
+                            Toast.makeText(getContext(), "You are not connected to a network.", Toast.LENGTH_LONG).show();
+                            vibe.vibrate(300);
+                        }
+//                    } else {
+//                        Toast.makeText(getContext(), "You are not a valid user. Please speak with IT.", Toast.LENGTH_LONG).show();
+//                        vibe.vibrate(300);
+//                    }
+                    db.closeDB();
+                }
+            });
+
+            rvMessages.scrollToPosition(adapter.getItemCount() -1);
+
+            Timer timer = new Timer();
+            timer.schedule(new GetNewMessages(), 10000, 10000);
+        }
+    };
 
 
     public void onButtonPressed(Uri uri) {
@@ -304,5 +332,39 @@ public class ChatFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
+    }
+}
+
+class GetNewMessages extends TimerTask {
+    public void run() {
+        NetworkInfo mWifi = ChatFragment.connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (mWifi.isConnected()) {
+            JSONObject post_dict = new JSONObject();
+            DatabaseHandler db = new DatabaseHandler(MainActivity.context);
+            Message message = db.getLatestMessage();
+            db.closeDB();
+            if (message == null) {
+                message = new Message();
+                String latestMessage = "0000-00-00 00:00:00.000";
+
+                message.setTimeSent(latestMessage);
+            }
+
+            try {
+                post_dict.put("action", "getnewmessages");
+                post_dict.put("timestamp", message.getTimeSent());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //Log.i("LOG", String.valueOf(post_dict));
+
+            if (post_dict.length() > 0) {
+
+                new APICall().execute(String.valueOf(post_dict));
+
+                //Log.i("LOG", );
+            }
+        }
     }
 }

@@ -121,8 +121,8 @@ public class LoginFragment extends Fragment {
 
 
         // Temporarily set credentials
-        emailForm.setText("test");
-        passwordForm.setText("test");
+        emailForm.setText("");
+        passwordForm.setText("");
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +130,7 @@ public class LoginFragment extends Fragment {
 
                 ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-                NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                //NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
 
 //                if (!mData.isConnected() && !mWifi.isConnected()) {

@@ -330,6 +330,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteAllUsers() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.rawQuery("DELETE FROM users", new String[] {});
+        // Using close because closeDB does not exist at this point in time.
+        db.close();
+    }
+
     // Delete a Permission
     public void deletePermissions(long permissions_id) {
         SQLiteDatabase db = getWritableDatabase();
