@@ -108,9 +108,7 @@ public class ChatFragment extends Fragment {
         final MediaPlayer mp = MediaPlayer.create(this.getContext(), R.raw.sendbeep);
         final Vibrator vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
-        // Attempt to move content up when opening the EditText
-        // This does not work all the time. No idea why.
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
 
         messageContent = (EditText) view.findViewById(R.id.editMessage);
         sendButton = (Button) view.findViewById(R.id.sendButton);
@@ -120,6 +118,9 @@ public class ChatFragment extends Fragment {
         Runnable run = new Runnable() {
             @Override
             public void run() {
+                // Attempt to move content up when opening the EditText
+                // This does not work all the time. No idea why.
+                getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
                 DatabaseHandler db = new DatabaseHandler(getContext());
                 messageList = db.getAllMessages();
 
