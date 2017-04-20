@@ -138,6 +138,8 @@ public class MessagesAdapter extends
 
         // This will convert only the current chat users username to the color they selected.
         int selected = preferences.getInt("color", -1672077);
+        Log.i("LOG", "" + sharedPref.getString("username", ""));
+        Log.i("LOG", "" + db.getUser(message.getUser_id()).getName());
         if(sharedPref.getString("username", "") == (db.getUser(message.getUser_id()).getName())){
             name.setTextColor(selected);
         }
