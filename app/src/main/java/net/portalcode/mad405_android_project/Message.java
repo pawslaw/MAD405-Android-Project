@@ -64,4 +64,14 @@ public class Message {
     public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", timeSent='" + timeSent + '\'' +
+                ", content='" + content + '\'' +
+                ", user_id=" + user_id +
+                '}';
+    }
 }
