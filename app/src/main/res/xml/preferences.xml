@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="Customize the App"
+        android:key="pref_user_customization">
+        <SwitchPreference
+            android:summaryOn="Choose between Night and Day themes(restarts the app)"
+            android:summaryOff="Choose between Night and Day themes(restarts the app)"
+            android:switchTextOff="Night"
+            android:switchTextOn="Day"
+            android:key="theme"/>
+        <org.xdty.preference.ColorPreference
+            android:key="color"
+            android:title="Username Color"
+            android:summary="Use this to change the color of your username within the chat"
+            tools:dialogTitle="@string/default_color"
+            tools:colors="@array/rainbow"
+            tools:columns="5"
+            tools:material="true"
+            tools:backwardsOrder="true"
+            tools:strokeWidth="0"
+            tools:strokeColor="@android:color/black"
+            android:defaultValue="@color/flamingo"/>
+    </PreferenceCategory>
+</PreferenceScreen>

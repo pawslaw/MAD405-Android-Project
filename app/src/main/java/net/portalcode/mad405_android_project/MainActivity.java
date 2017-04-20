@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +35,9 @@ public class MainActivity extends AppCompatActivity
         CreditFragment.OnFragmentInteractionListener,
         CreditDisplayFragment.OnFragmentInteractionListener,
         LoginFragment.OnFragmentInteractionListener{
+
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_NIGHT_MODE = "night_mode";
 
     public static FragmentManager fm;
     public static FloatingActionButton fab;
@@ -49,9 +55,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
+
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean useDayMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
+
+        if(useDayMode) {
+            setTheme(R.style.AppTheme_Light_NoActionBar);
+        }
+        super.onCreate(savedInstanceState);
+        sharedPref = getPreferences(Context.MODE_WORLD_WRITEABLE);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -78,11 +91,29 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState == null){
+        // This will be used to grab the nav header information
+//        View hView =  navigationView.getHeaderView(0);
+//        TextView navHeaderName = (TextView)hView.findViewById(R.id.navHeaderName);
+//        ImageView navHeaderImage = (ImageView) hView.findViewById(R.id.navHeaderImageView);
+
+        // If the app is being loaded from a new instance and the user is properly logged in
+        if(savedInstanceState == null && (sharedPref.getString("username", "").equals(""))){
+            System.out.println(sharedPref.getString("username", ""));
             // As soon as the app opens, change the current view to the Main Fragment
             fm = getSupportFragmentManager();
+//            navHeaderName.setText("Icicle");
+//            navHeaderImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
-            fragmentTransaction.add(R.id.content_main, new LoginFragment());
+            fragmentTransaction.replace(R.id.content_main, new LoginFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        } else {
+            System.out.println(sharedPref.getString("username", ""));
+            fm = getSupportFragmentManager();
+//            navHeaderImage.setImageResource(R.drawable.ic_account_circle_black_24dp);
+//            navHeaderName.setText(sharedPref.getString("username", ""));
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            fragmentTransaction.replace(R.id.content_main, new ChatFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
@@ -113,7 +144,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.profile_settings) {
+            // This will launch the SettingsActivity
+            Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(i);
             return true;
         }
 
@@ -128,7 +162,7 @@ public class MainActivity extends AppCompatActivity
 
         FragmentTransaction trans = fm.beginTransaction();
 
-        if (id == R.id.nav_chat) {
+        if (id == R.id.nav_chat && !(sharedPref.getString("username", "").equals(""))) {
             trans.replace(R.id.content_main, new ChatFragment());
             trans.commit();
         } else if (id == R.id.nav_calendar) {
@@ -153,30 +187,39 @@ public class MainActivity extends AppCompatActivity
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }
-        } else if (id == R.id.nav_subitem2) {
-            // Add all entries to the database.
-            DatabaseHandler db = new DatabaseHandler(getBaseContext());
+//        } else if (id == R.id.nav_subitem2) {
+//            // Add all entries to the database.
+//            DatabaseHandler db = new DatabaseHandler(getBaseContext());
+//
+//            // Add temporary Permissions to the Permissions table for testing purposes
+//            // Permission 1(first entry) is the standard user, 2 is a moderator. 3 is just a tester permission
+//            // -RW
+//            db.addPermissions(new Permissions(0, 1, 1));
+//            // ERW
+//            db.addPermissions(new Permissions(1, 1, 1));
+//            // -R-
+//            db.addPermissions(new Permissions(0, 1, 0));
+//
+//
+//
+//            // Add temporary Users to the Users table for testing purposes
+//            db.addUser(new User("Android User", R.drawable.ic_adb_black_24dp, 1));
+//            db.addUser(new User("Mr. Robot", R.drawable.ic_android_black_24dp, 1));
+//            db.addUser(new User("Chatty Cathy", R.drawable.ic_forum_black_24dp, 1));
+//            db.addUser(new User("DJ Disco", R.drawable.ic_album_black_24dp, 1));
+//            db.addUser(new User("Mr. Helpful", R.drawable.ic_attach_file_black_24dp, 1));
+//            db.addUser(new User("Sword Drop", R.drawable.ic_colorize_black_24dp, 1));
+//
+//            db.closeDB();
+    }else if(id == R.id.nav_logout) {
+            SharedPreferences.Editor editor = MainActivity.sharedPref.edit();
+            editor.putString("username", "");
+            editor.putString("password", "");
+            editor.apply();
 
-            // Add temporary Permissions to the Permissions table for testing purposes
-            // Permission 1(first entry) is the standard user, 2 is a moderator. 3 is just a tester permission
-            // -RW
-            db.addPermissions(new Permissions(0, 1, 1));
-            // ERW
-            db.addPermissions(new Permissions(1, 1, 1));
-            // -R-
-            db.addPermissions(new Permissions(0, 1, 0));
-
-
-
-            // Add temporary Users to the Users table for testing purposes
-            db.addUser(new User("Android User", R.drawable.ic_adb_black_24dp, 1));
-            db.addUser(new User("Mr. Robot", R.drawable.ic_android_black_24dp, 1));
-            db.addUser(new User("Chatty Cathy", R.drawable.ic_forum_black_24dp, 1));
-            db.addUser(new User("DJ Disco", R.drawable.ic_album_black_24dp, 1));
-            db.addUser(new User("Mr. Helpful", R.drawable.ic_attach_file_black_24dp, 1));
-            db.addUser(new User("Sword Drop", R.drawable.ic_colorize_black_24dp, 1));
-
-            db.closeDB();
+            Intent intent = new Intent(this, MainActivity.class);
+            finish();
+            startActivity(intent);
         } else if (id == R.id.nav_credits) {
             trans.replace(R.id.content_main, new CreditFragment());
             trans.commit();

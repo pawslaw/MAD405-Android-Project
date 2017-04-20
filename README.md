@@ -1,5 +1,4 @@
 # MAD405-Android-Project
-# LazyCakes
 ## Git Config Instructions
 Set name: `git config --global user.name` `<<<YOUR NAME HERE>>>`
 

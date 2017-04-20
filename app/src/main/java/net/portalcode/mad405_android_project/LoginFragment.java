@@ -1,17 +1,23 @@
 package net.portalcode.mad405_android_project;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -29,6 +35,9 @@ import java.util.logging.Logger;
  * create an instance of this fragment.
  */
 public class LoginFragment extends Fragment {
+
+    private static final String PREFS_NAME = "prefs";
+    private static final String PREF_NIGHT_MODE = "night_mode";
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,10 +71,54 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+
+        TextView header = (TextView) view.findViewById(R.id.header);
+        LinearLayout layout = (LinearLayout) view.findViewById(R.id.layout);
+        EditText email = (EditText) view.findViewById(R.id.email);
+        EditText password = (EditText) view.findViewById(R.id.password);
+        ImageView emailImage = (ImageView) view.findViewById(R.id.accountImage);
+        ImageView passwordImage = (ImageView) view.findViewById(R.id.passwordImage);
+        Button loginButton = (Button) view.findViewById(R.id.loginButton);
+        TextView threat = (TextView) view.findViewById(R.id.threat);
+
+        // This is the preferences file the user can make changes to
+        SharedPreferences preferences = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+        boolean useDayMode = preferences.getBoolean(PREF_NIGHT_MODE, false);
+        final int version = Build.VERSION.SDK_INT;
+
+        // This makes sure to use the correct version of the command based on android version number
+        if(useDayMode && version < 23) {
+            layout.setBackgroundColor(getContext().getResources().getColor(R.color.freshSidewalk));
+            email.setBackgroundColor(getContext().getResources().getColor(R.color.cleanSidewalk));
+            emailImage.setBackgroundColor(getContext().getResources().getColor(R.color.cleanSidewalk));
+            password.setBackgroundColor(getContext().getResources().getColor(R.color.cleanSidewalk));
+            passwordImage.setBackgroundColor(getContext().getResources().getColor(R.color.cleanSidewalk));
+            header.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            email.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            password.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+            threat.setTextColor(getContext().getResources().getColor(R.color.colorPrimary));
+        } else if (useDayMode && version >= 23){
+            layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.freshSidewalk));
+            email.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cleanSidewalk));
+            emailImage.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cleanSidewalk));
+            password.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cleanSidewalk));
+            passwordImage.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.cleanSidewalk));
+            header.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            email.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            password.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            threat.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        } else if(!useDayMode && version < 23){
+            layout.setBackgroundColor(getContext().getResources().getColor(R.color.lightGraphite));
+            header.setTextColor(getContext().getResources().getColor(R.color.frostbite));
+        } else {
+            layout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.lightGraphite));
+            header.setTextColor(ContextCompat.getColor(getContext(), R.color.frostbite));
+        }
+
         final EditText emailForm = (EditText) view.findViewById(R.id.email);
         final EditText passwordForm = (EditText) view.findViewById(R.id.password);
 
-        Button loginButton = (Button) view.findViewById(R.id.loginButton);
 
         // Temporarily set credentials
         emailForm.setText("");
@@ -79,8 +132,10 @@ public class LoginFragment extends Fragment {
                 NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                 //NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
+
 //                if (!mData.isConnected() && !mWifi.isConnected()) {
                 if (!mWifi.isConnected()) {
+
                     Toast.makeText(getContext(), "Please connect to the internet.", Toast.LENGTH_LONG).show();
                     return;
                 }

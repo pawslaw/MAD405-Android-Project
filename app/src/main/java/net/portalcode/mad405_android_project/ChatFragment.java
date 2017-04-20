@@ -115,9 +115,7 @@ public class ChatFragment extends Fragment {
         mp = MediaPlayer.create(this.getContext(), R.raw.sendbeep);
         vibe = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
-        // Attempt to move content up when opening the EditText
-        // This does not work all the time. No idea why.
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
 
         messageContent = (EditText) view.findViewById(R.id.editMessage);
         sendButton = (Button) view.findViewById(R.id.sendButton);
@@ -133,6 +131,9 @@ public class ChatFragment extends Fragment {
     public Runnable run = new Runnable() {
         @Override
         public void run() {
+            // Attempt to move content up when opening the EditText
+            // This does not work all the time. No idea why.
+            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
             DatabaseHandler db = new DatabaseHandler(getContext());
             messageList = db.getAllMessages();
 
@@ -165,6 +166,26 @@ public class ChatFragment extends Fragment {
                     ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
                     NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                     NetworkInfo mData = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+                    if (mWifi.isConnected()) {
+                        JSONObject post_dict = new JSONObject();
+
+                        try {
+                            post_dict.put("action", "getallusers");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        //Log.i("LOG", String.valueOf(post_dict));
+
+                        if (post_dict.length() > 0) {
+
+                            new APICall().execute(String.valueOf(post_dict));
+
+                            //Log.i("LOG", );
+                        }
+                    }
+
 
                     // Confirm there are valid users in the local database
                     // NOTE This does not confirm the CURRENT user is valid simply that there are valid users.
@@ -291,7 +312,7 @@ public class ChatFragment extends Fragment {
             rvMessages.scrollToPosition(adapter.getItemCount() -1);
 
             Timer timer = new Timer();
-            timer.schedule(new GetNewMessages(), 10000, 10000);
+            timer.schedule(new GetNewMessages(), 10000, 2500);
         }
     };
 
