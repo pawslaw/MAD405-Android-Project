@@ -123,9 +123,6 @@ public class ChatFragment extends Fragment {
         sendButton = (Button) view.findViewById(R.id.sendButton);
         rvMessages = (RecyclerView) view.findViewById(R.id.chatList);
 
-        Timer timer = new Timer();
-        timer.schedule(new GetNewMessages(), 0, 5000);
-
         run.run();
 
         return view;
@@ -293,6 +290,8 @@ public class ChatFragment extends Fragment {
 
             rvMessages.scrollToPosition(adapter.getItemCount() -1);
 
+            Timer timer = new Timer();
+            timer.schedule(new GetNewMessages(), 10000, 10000);
         }
     };
 
@@ -342,7 +341,7 @@ class GetNewMessages extends TimerTask {
             JSONObject post_dict = new JSONObject();
             DatabaseHandler db = new DatabaseHandler(MainActivity.context);
             Message message = db.getLatestMessage();
-
+            db.closeDB();
             if (message == null) {
                 message = new Message();
                 String latestMessage = "0000-00-00 00:00:00.000";
@@ -351,8 +350,6 @@ class GetNewMessages extends TimerTask {
             }
 
             try {
-
-
                 post_dict.put("action", "getnewmessages");
                 post_dict.put("timestamp", message.getTimeSent());
             } catch (JSONException e) {

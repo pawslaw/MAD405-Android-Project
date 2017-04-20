@@ -77,7 +77,7 @@ public class APICall extends AsyncTask<String, String, String> {
             if (buffer.length() == 0) {return null;}
             JsonResponse = buffer.toString();
 
-            Log.i("LOG", JsonResponse);
+            //Log.i("LOG", JsonResponse);
             return JsonResponse;
 
         } catch (IOException e) {
@@ -167,7 +167,7 @@ public class APICall extends AsyncTask<String, String, String> {
 
 //                    Log.i("LOGSCREAM", message.toString());
                 }
-                messageList = db.getAllMessages();
+                //messageList = db.getAllMessages();
 
 //                Log.i("TEST", "----- PRINTING MESSAGES -----");
 //                for (int i = 0; i< messageList.size(); i++) {
@@ -178,19 +178,19 @@ public class APICall extends AsyncTask<String, String, String> {
 
                 messageList.clear();
                 messageList.addAll(db.getAllMessages());
-                adapter.notifyDataSetChanged();
+                db.closeDB();
 
 //                Log.i("TEST", "----- PRINTING MESSAGES -----");
 //                for (int i = 0; i< messageList.size(); i++) {
 //                    Log.i("TEST", messageList.get(i).getContent());
 //                }
 
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
 
                 ChatFragment.adapter = new MessagesAdapter(MainActivity.context, messageList);
                 ChatFragment.rvMessages.setAdapter(adapter);
                 ChatFragment.rvMessages.scrollToPosition(adapter.getItemCount()-1);
-                db.closeDB();
+
             } else if (json.optJSONArray("users") != null && json.optJSONArray("users").length() != 0) {
                 DatabaseHandler db = new DatabaseHandler(MainActivity.context);
                 db.deleteAllUsers();
