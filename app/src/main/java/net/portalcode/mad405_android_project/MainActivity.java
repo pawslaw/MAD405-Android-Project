@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
             setTheme(R.style.AppTheme_Light_NoActionBar);
         }
         super.onCreate(savedInstanceState);
-        sharedPref = getPreferences(Context.MODE_WORLD_WRITEABLE);
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
